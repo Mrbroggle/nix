@@ -18,10 +18,12 @@
     options = "--delete-older-than 30d";
   };
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  system.copySystemConfiguration = true;
+  #  system.copySystemConfiguration = true;
 
   system.stateVersion = "24.11";
 
