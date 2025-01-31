@@ -13,5 +13,6 @@
       ./desktopapps.nix
       ./security.nix
       ./storeconf.nix
+      ./office.nix
     ];
 }
