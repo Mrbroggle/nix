@@ -1,6 +1,7 @@
 { pkgs, config, ... }: {
   environment.systemPackages = with pkgs; [
     mpv
+    celluloid
     neovide
     dolphin
     gnome-network-displays

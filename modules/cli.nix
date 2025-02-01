@@ -15,5 +15,6 @@
     ueberzugpp
     jq
     chafa
+    ani-cli
   ];
 }

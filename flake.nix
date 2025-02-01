@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     jerry.url = "github:justchokingaround/jerry";
     lobster.url = "github:justchokingaround/lobster";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {

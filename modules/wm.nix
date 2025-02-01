@@ -1,5 +1,6 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, inputs, ... }: {
   programs.hyprland.enable = true;
+  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   programs.regreet.enable = true;
   services.xserver.xkb = {
     layout = "au";
