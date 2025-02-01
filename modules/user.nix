@@ -3,7 +3,7 @@
   users.users.gradyb = {
     isNormalUser = true;
     description = "grady brown";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     shell = pkgs.fish;
   };
 }

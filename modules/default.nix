@@ -14,5 +14,6 @@
       ./security.nix
       ./storeconf.nix
       ./office.nix
+      ./multirotor.nix
     ];
 }
