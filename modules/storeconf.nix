@@ -1,9 +1,11 @@
 {...}: {
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "8:00" ];
-  nix.gc = {
+  nix = {
+    optimise.automatic = true;
+    optimise.dates = ["07:45"];
+    gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
+  };
 }

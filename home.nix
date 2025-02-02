@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/gradyb";
 
   imports = [
-
+    ./home/default.nix
   ];
   home.stateVersion = "24.11";
 
@@ -20,14 +20,6 @@
   home.sessionVariables = {
 
   };
-
-  wayland.windowManager.hyprland = {
-      enable = true;
-
-      settings = {
-
-        };
-    }
 
   programs.home-manager.enable = true;
 }

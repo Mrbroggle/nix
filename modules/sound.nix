@@ -1,5 +1,4 @@
-{ pkgs, config, ... }: {
-  hardware.pulseaudio.enable = false;
+{pkgs, ...}: {
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -13,4 +12,3 @@
     pavucontrol
   ];
 }
-

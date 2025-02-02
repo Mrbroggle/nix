@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{pkgs, ...}: {
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
 
@@ -17,5 +17,9 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.hack
+  ];
 }

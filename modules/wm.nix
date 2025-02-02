@@ -1,14 +1,23 @@
-{ pkgs, config, inputs, ... }: {
-  programs.hyprland.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  programs.regreet.enable = true;
-  services.xserver.xkb = {
-    layout = "au";
-    variant = "";
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  programs = {
+    hyprland.enable = true;
+    hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    regreet.enable = true;
   };
-  services.xserver.enable = true;
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "gradyb";
+  services = {
+    xserver.xkb = {
+      layout = "au";
+      variant = "";
+    };
+    xserver.enable = true;
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "gradyb";
+  };
+
   environment.systemPackages = with pkgs; [
     alacritty
     networkmanager
@@ -22,10 +31,5 @@
     hypridle
     hyprlock
     hyprpolkitagent
-    hyprlandPlugins.hyprgrass
-    hyprlandPlugins.hyprbars
-    hyprlandPlugins.hypr-dynamic-cursors
-    hyprlandPlugins.hyprtrails
   ];
 }
-

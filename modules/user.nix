@@ -1,10 +1,9 @@
-{ pkgs, config, ... }: {
+{pkgs, ...}: {
   programs.fish.enable = true;
   users.users.gradyb = {
     isNormalUser = true;
     description = "grady brown";
-    extraGroups = [ "networkmanager" "wheel" "dialout" ];
+    extraGroups = ["networkmanager" "wheel" "dialout"];
     shell = pkgs.fish;
   };
 }
-

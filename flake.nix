@@ -24,6 +24,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.gradyb = import ./home.nix;
+          home-manager.backupFileExtension = "backup";
         }
       ];
     };

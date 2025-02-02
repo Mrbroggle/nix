@@ -1,4 +1,8 @@
-{ pkgs, config, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     wget
     ffmpeg
@@ -11,7 +15,7 @@
     cmake
     fastfetch
     inputs.jerry.packages."${pkgs.system}".jerry
-    inputs.lobster.packages."${pkgs.system}".lobster
+    (inputs.lobster.packages."${pkgs.system}".lobster.override {inherit (pkgs) mpv;})
     ueberzugpp
     jq
     chafa
