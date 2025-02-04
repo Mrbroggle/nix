@@ -4,6 +4,7 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    nix-output-monitor
     wget
     ffmpeg
     gcc
