@@ -1,25 +1,23 @@
-{ config, pkgs, lib, ... }:
+{pkgs, ...}: {
+  home = {
+    username = "gradyb";
+    homeDirectory = "/home/gradyb";
 
-{
-  home.username = "gradyb";
-  home.homeDirectory = "/home/gradyb";
+    stateVersion = "24.11";
 
+    packages = [
+      pkgs.gyroflow
+    ];
+
+    file = {
+    };
+
+    sessionVariables = {
+    };
+  };
   imports = [
     ./home/default.nix
   ];
-  home.stateVersion = "24.11";
-
-  home.packages = [
-
-  ];
-
-  home.file = {
-
-  };
-
-  home.sessionVariables = {
-
-  };
 
   programs.home-manager.enable = true;
 }
