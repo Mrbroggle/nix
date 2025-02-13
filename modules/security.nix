@@ -34,4 +34,6 @@
     fprintd.enable = true;
     openssh.enable = true;
   };
+
+  services.gnome.gnome-keyring.enable = true;
 }

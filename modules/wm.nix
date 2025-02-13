@@ -1,13 +1,23 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   programs = {
     hyprland.enable = true;
     hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-    regreet.enable = true;
+    regreet = {
+      enable = true;
+      settings = lib.mkForce {
+        default_session = {
+          command = "Hyprland";
+          user = "gradyb";
+        };
+      };
+    };
   };
+
   services = {
     xserver.xkb = {
       layout = "au";

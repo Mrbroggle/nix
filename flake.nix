@@ -14,20 +14,25 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix.url = "github:danth/stylix";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     nixpkgs,
     home-manager,
-    nvf,
     ...
   } @ inputs: {
     nixosConfigurations.gradyb-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
-        nvf.nixosModules.default
         ./configuration.nix
+        inputs.spicetify-nix.nixosModules.default
+
+        inputs.nvf.nixosModules.default
+        inputs.stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
         {
           home-manager = {

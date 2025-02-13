@@ -7,6 +7,7 @@
     nix-output-monitor
     wget
     ffmpeg
+    ffmpegthumbs
     gcc
     git
     cargo
@@ -15,6 +16,8 @@
     cpio
     cmake
     fastfetch
+    unzip
+    gzip
     inputs.jerry.packages."${pkgs.system}".jerry
     (inputs.lobster.packages."${pkgs.system}".lobster.override {inherit (pkgs) mpv;})
     ueberzugpp
