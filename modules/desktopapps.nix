@@ -31,7 +31,6 @@
       capSysNice = true;
     };
   };
-  programs.steam.gamescopeSession.enable = true;
   programs.spicetify = let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   in {

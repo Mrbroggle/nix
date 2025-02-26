@@ -27,4 +27,5 @@
     grc
     libnotify
   ];
+  services.fwupd.enable = true;
 }

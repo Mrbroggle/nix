@@ -20,6 +20,7 @@
         ];
       }
     ];
+    pam.services.fprintd.enableGnomeKeyring = true;
   };
   programs.gnupg.agent = {
     enable = true;
@@ -34,6 +35,4 @@
     fprintd.enable = true;
     openssh.enable = true;
   };
-
-  services.gnome.gnome-keyring.enable = true;
 }

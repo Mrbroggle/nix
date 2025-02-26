@@ -7,15 +7,16 @@
   programs = {
     hyprland.enable = true;
     hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    /*
     regreet = {
       enable = true;
       settings = lib.mkForce {
-        default_session = {
-          command = "Hyprland";
-          user = "gradyb";
+        env = {
+          STATE_DIR = "/home/gradyb/.temp/";
         };
       };
     };
+    */
   };
 
   services = {
@@ -24,8 +25,14 @@
       variant = "";
     };
     xserver.enable = true;
-    displayManager.autoLogin.enable = true;
-    displayManager.autoLogin.user = "gradyb";
+    displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
+      autoLogin.enable = true;
+      autoLogin.user = "gradyb";
+    };
   };
 
   environment.systemPackages = with pkgs; [
