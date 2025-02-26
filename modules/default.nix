@@ -17,5 +17,6 @@
     ./multirotor.nix
     ./stylix.nix
     ./mail.nix
+    ./uni.nix
   ];
 }

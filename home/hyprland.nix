@@ -11,6 +11,7 @@
         "udiskie"
         "nm-applet &"
         "waybar"
+        "clipse -listen"
       ];
 
       monitor = "eDP-1, 2880x1920@120, 0x0, 1.875";
@@ -126,7 +127,7 @@
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, E, exec, $fileManager"
-        "$mainMod, V, togglefloating,"
+        "$mainMod, G, togglefloating,"
         "$mainMod, R, exec, $menu"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
@@ -158,6 +159,7 @@
         "$mainMod, mouse_up, workspace, e-1"
         "$mainMod, F, fullscreen,"
         "$mainMod SHIFT, S, exec, hyprshot -z -m region"
+        "$mainMod, V, exec, alacritty --class clipse -e clipse"
       ];
 
       bindm = [
@@ -184,6 +186,9 @@
       windowrulev2 = [
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        "float, class:(clipse)"
+        "size 622 652, class:(clipse)"
+        "stayfocused, class:(clipse)"
       ];
     };
   };

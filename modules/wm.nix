@@ -36,6 +36,7 @@
     waybar
     udiskie
     wl-clipboard
+    clipse
     hyprshot
     hyprpaper
     hypridle
