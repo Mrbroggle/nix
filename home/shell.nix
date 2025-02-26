@@ -35,6 +35,7 @@
         nrs = "nh os switch /home/gradyb/etc/nixos/ $argv";
         ga = "git add .";
         gc = "git commit";
+        gp = "git push";
         gd = "git clone $argv";
         ani = "ani-cli $argv";
         anid = "ani-cli -d $argv";
