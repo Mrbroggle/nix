@@ -95,7 +95,7 @@
           julia.enable = false;
           vala.enable = false;
           scala.enable = false;
-          r.enable = false;
+          r.enable = true;
           gleam.enable = false;
           dart.enable = false;
           ocaml.enable = false;
@@ -103,8 +103,8 @@
           haskell.enable = false;
           ruby.enable = false;
 
-          tailwind.enable = false;
-          svelte.enable = false;
+          tailwind.enable = true;
+          svelte.enable = true;
 
           # Nim LSP is broken on Darwin and therefore
           # should be disabled by default. Users may still enable

@@ -111,7 +111,7 @@
 
         touchpad = {
           natural_scroll = true;
-          scroll_factor = "0.6";
+          scroll_factor = "0.4";
         };
       };
 

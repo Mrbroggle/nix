@@ -13,8 +13,11 @@
     kdePackages.qtwayland
     kdePackages.qtsvg
     kdePackages.dolphin
+    obsidian
+    qbittorrent
   ];
   services.udisks2.enable = true;
+  services.gvfs.enable = true;
 
   programs = {
     steam = {
