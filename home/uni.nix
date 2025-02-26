@@ -3,6 +3,6 @@
     zulu23
     zoom-us
     R
-    rStudio
+    rstudio
   ];
 }
