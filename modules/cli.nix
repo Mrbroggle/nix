@@ -24,5 +24,7 @@
     jq
     chafa
     ani-cli
+    grc
+    libnotify
   ];
 }

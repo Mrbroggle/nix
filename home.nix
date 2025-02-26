@@ -19,5 +19,6 @@
     ./home/default.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
 }

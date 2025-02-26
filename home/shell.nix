@@ -1,34 +1,45 @@
 {pkgs, ...}: {
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
+  programs = {
+    eza = {
+      enable = true;
+      icons = "always";
+      enableFishIntegration = true;
+    };
+    thefuck.enable = true;
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
 
-    '';
-    plugins = [
-      {
-        name = "grc";
-        src = pkgs.fishPlugins.grc.src;
-      }
-      {
-        name = "sponge";
-        src = pkgs.fishPlugins.sponge.src;
-      }
-      {
-        name = "puffer";
-        src = pkgs.fishPlugins.puffer.src;
-      }
-      {
-        name = "done";
-        src = pkgs.fishPlugins.done.src;
-      }
-      {
-        name = "async-prompt";
-        src = pkgs.fishPlugins.async-prompt.src;
-      }
-    ];
-    shellAliases = {
-      enc = "doas nvim /etc/nixos/configuration.nix $argv";
-      nrs = "nh os switch /home/gradyb/etc/nixos/ $argv";
+      '';
+      plugins = [
+        {
+          name = "grc";
+          src = pkgs.fishPlugins.grc.src;
+        }
+        {
+          name = "sponge";
+          src = pkgs.fishPlugins.sponge.src;
+        }
+        {
+          name = "puffer";
+          src = pkgs.fishPlugins.puffer.src;
+        }
+        {
+          name = "done";
+          src = pkgs.fishPlugins.done.src;
+        }
+      ];
+      shellAliases = {
+        enc = "doas nvim /etc/nixos/ ";
+        cnc = "cd /etc/nixos/";
+        nrs = "nh os switch /home/gradyb/etc/nixos/ $argv";
+        ga = "git add .";
+        gc = "git commit";
+        gd = "git clone $argv";
+        ani = "ani-cli $argv";
+        anid = "ani-cli -d $argv";
+        ls = "eza $argv";
+      };
     };
   };
 }

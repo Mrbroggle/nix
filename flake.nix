@@ -36,7 +36,6 @@
         home-manager.nixosModules.home-manager
         {
           home-manager = {
-            useGlobalPkgs = true;
             useUserPackages = true;
             users.gradyb = import ./home.nix;
             backupFileExtension = "backup";

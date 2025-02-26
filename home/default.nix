@@ -3,5 +3,6 @@
     ./hyprland.nix
     ./hyprpaper.nix
     ./dots.nix
+    ./shell.nix
   ];
 }
