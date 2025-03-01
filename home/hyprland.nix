@@ -1,4 +1,4 @@
-{...}: {
+_: {
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -14,11 +14,15 @@
         "clipse -listen"
       ];
 
-      monitor = "eDP-1, 2880x1920@120, 0x0, 1.875";
-
       xwayland = {
         force_zero_scaling = true;
       };
+
+      monitor = [
+        "eDP-1, 2880x1920@120, 0x0, 1.875"
+        "DP-2, 1920x1080@165,0x0,1"
+        "HDMI-A-2, 1920x1080@100,-1920x-400,1,transform,1"
+      ];
 
       env = [
         "GDK_SCALE,2"

@@ -24,24 +24,47 @@
     home-manager,
     ...
   } @ inputs: {
-    nixosConfigurations.gradyb-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./configuration.nix
-        inputs.spicetify-nix.nixosModules.default
+    nixosConfigurations = {
+      pc-nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./host/pc.nix
+          ./configuration.nix
+          inputs.spicetify-nix.nixosModules.default
 
-        inputs.nvf.nixosModules.default
-        inputs.stylix.nixosModules.stylix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useUserPackages = true;
-            users.gradyb = import ./home.nix;
-            backupFileExtension = "backup";
-          };
-        }
-      ];
+          inputs.nvf.nixosModules.default
+          inputs.stylix.nixosModules.stylix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useUserPackages = true;
+              users.gradyb = import ./host/laptop/home.nix;
+              backupFileExtension = "backup";
+            };
+          }
+        ];
+      };
+      laptop-nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./host/pc.nix
+          ./configuration.nix
+          inputs.spicetify-nix.nixosModules.default
+
+          inputs.nvf.nixosModules.default
+          inputs.stylix.nixosModules.stylix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useUserPackages = true;
+              users.gradyb = import ./host/pc/home.nix;
+              backupFileExtension = "backup";
+            };
+          }
+        ];
+      };
     };
   };
 }
