@@ -1,4 +1,4 @@
-_: {
+{lib, ...}: {
   programs.waybar = {
     enable = true;
     settings = {
@@ -122,6 +122,6 @@ _: {
         };
       };
     };
+    style = lib.mkForce ./style.css;
   };
-  style = ./style.css;
 }
