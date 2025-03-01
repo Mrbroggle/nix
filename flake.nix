@@ -39,7 +39,7 @@
           {
             home-manager = {
               useUserPackages = true;
-              users.gradyb = import ./host/laptop/home.nix;
+              users.gradyb = import ./host/pc/home.nix;
               backupFileExtension = "backup";
             };
           }
@@ -49,7 +49,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          ./host/pc.nix
+          ./host/laptop.nix
           ./configuration.nix
           inputs.spicetify-nix.nixosModules.default
 
@@ -59,7 +59,7 @@
           {
             home-manager = {
               useUserPackages = true;
-              users.gradyb = import ./host/pc/home.nix;
+              users.gradyb = import ./host/laptop/home.nix;
               backupFileExtension = "backup";
             };
           }
