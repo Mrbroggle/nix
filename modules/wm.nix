@@ -40,7 +40,6 @@
     networkmanager
     wofi
     swaynotificationcenter
-    waybar
     udiskie
     wl-clipboard
     clipse
