@@ -1,4 +1,4 @@
-{...}: {
+_: {
   xdg.configFile."dolphinrc".text = ''
     [General]
     Version=202
