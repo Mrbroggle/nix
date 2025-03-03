@@ -15,7 +15,7 @@
     ./storeconf.nix
     ./office.nix
     ./multirotor.nix
-    ./stylix.nix
     ./mail.nix
+    ./stylix.nix
   ];
 }

@@ -2,11 +2,15 @@
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
-    image = ../home/wall0.png;
+    image = ./wall0.png;
     polarity = "dark";
     autoEnable = true;
     targets = {
-      plymouth.enable = true;
+      fish.enable = true;
+      qt.enable = true;
+      gtk.enable = true;
+      spicetify.enable = true;
+      btop.enable = true;
     };
   };
 }

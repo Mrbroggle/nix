@@ -6,5 +6,7 @@
     ./dots.nix
     ./shell.nix
     ./uni.nix
+    ./swaync.nix
+    ./stylix.nix
   ];
 }
