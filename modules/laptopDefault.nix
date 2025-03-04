@@ -1,5 +1,5 @@
 _: {
-  import = [
+  imports = [
     ./battery.nix
   ];
 }

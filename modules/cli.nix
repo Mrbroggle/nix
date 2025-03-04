@@ -28,6 +28,7 @@
     ani-cli
     grc
     libnotify
+    nurl
   ];
   services.fwupd.enable = true;
 }
