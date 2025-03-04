@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
     image = ./wall0.png;
     polarity = "dark";
     autoEnable = true;
@@ -11,6 +11,7 @@
       gtk.enable = true;
       spicetify.enable = true;
       btop.enable = true;
+      neovim.enable = true;
     };
   };
 }

@@ -1,0 +1,5 @@
+{...}: {
+  imports = [
+    ./hyprlandPc.nix
+  ];
+}

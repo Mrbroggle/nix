@@ -12,7 +12,7 @@
     ./cli.nix
     ./desktopapps.nix
     ./security.nix
-    ./storeconf.nix
+    ./storeConf.nix
     ./office.nix
     ./multirotor.nix
     ./mail.nix

@@ -9,7 +9,9 @@
     fish = {
       enable = true;
       interactiveShellInit = ''
+        direnv hook fish | source
 
+                fastfetch
       '';
       plugins = [
         {
@@ -40,6 +42,7 @@
         ani = "ani-cli $argv";
         anid = "ani-cli -d $argv";
         ls = "eza $argv";
+        rs = "rstudio & disown & exit";
       };
     };
   };

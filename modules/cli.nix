@@ -4,10 +4,12 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    direnv
     nix-output-monitor
     wget
     ffmpeg
-    ffmpegthumbs
+    libsForQt5.ffmpegthumbs
+    kdePackages.ffmpegthumbs
     gcc
     git
     cargo

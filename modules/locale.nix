@@ -1,7 +1,11 @@
 {pkgs, ...}: {
   # Set your time zone.
-  time.timeZone = "Australia/Sydney";
-
+  services = {
+    automatic-timezoned.enable = true;
+    tzupdate.enable = true;
+    localtimed.enable = true;
+    geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
+  };
   # Select internationalisation properties.
   i18n.defaultLocale = "en_AU.UTF-8";
 

@@ -10,11 +10,10 @@
     gnome-network-displays
     discord
     gparted
-    kdePackages.qtwayland
-    kdePackages.qtsvg
     kdePackages.dolphin
     obsidian
     qbittorrent
+    networkmanagerapplet
   ];
 
   services = {

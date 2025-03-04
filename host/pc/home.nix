@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ../../home/hyprlandPc.nix
+    ../../home/pcDefault.nix
     ../../home.nix
   ];
 }
