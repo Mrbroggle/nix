@@ -151,7 +151,7 @@ _: {
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
         "$mainMod, F, fullscreen,"
-        "$mainMod SHIFT, S, exec, hyprshot -z -m region"
+        "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures"
         "$mainMod, V, exec, alacritty --class clipse -e clipse"
       ];
 
