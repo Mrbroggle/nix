@@ -12,6 +12,8 @@
         stringi
         stringr
         shiny
+        png
+        reticulate
       ];
     })
     (pkgs.rWrapper.override {
@@ -23,10 +25,13 @@
         stringi
         stringr
         shiny
+        png
+        reticulate
       ];
     })
   ];
-  xdg = {
+  /*
+    xdg = {
     configFile."rstudio/themes/base16-theme.rstheme".source =
       pkgs.fetchFromGitLab {
         owner = "gb2282006";
@@ -36,4 +41,5 @@
       }
       + "./Tokyo Night Storm.rstheme";
   };
+  */
 }
