@@ -1,0 +1,3 @@
+[submodule "home/base16-rthemes"]
+	path = home/base16-rthemes
+	url = git@gitlab.com:gb2282006/base16-rthemes.git

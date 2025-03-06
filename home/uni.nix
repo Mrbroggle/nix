@@ -1,4 +1,11 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  theme = pkgs.fetchFromGitLab {
+    owner = "gb2282006";
+    repo = "base16-rthemes";
+    rev = "83b367fd80e52c5b3a7d29c1fef358545faba8b2";
+    hash = "sha256-BJyAmZthmQZlmoA3qnMuiKMo9hc+4xOCKB6zcBKjysw=";
+  };
+in {
   home.packages = with pkgs; [
     zulu23
     zoom-us
@@ -30,16 +37,7 @@
       ];
     })
   ];
-  /*
-    xdg = {
-    configFile."rstudio/themes/base16-theme.rstheme".source =
-      pkgs.fetchFromGitLab {
-        owner = "gb2282006";
-        repo = "base16-rthemes";
-        rev = "e8f334cd37601178cfea283f02d4e04a59fdbe53";
-        hash = "sha256-LBMr+J1sc/khY1BUX9tySMp+i3sw81prctWZmhbwdZs=";
-      }
-      + "./Tokyo Night Storm.rstheme";
+  xdg = {
+    configFile."rstudio/themes/base16-theme.rstheme".source = "${theme}/TokyoNightStorm.rstheme";
   };
-  */
 }
