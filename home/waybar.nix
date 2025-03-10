@@ -1,9 +1,9 @@
 {pkgs, ...}: let
   dots = pkgs.fetchFromGitHub {
-    owner = "elifouts";
-    repo = "Dotfiles";
-    rev = "be47bd1e31c698627428a1317829b4b48d402554";
-    hash = "sha256-wazJx0dpwRe2632vAwO0pwaXYts3Dly+ygFgQbPdbHI=";
+    owner = "Mrbroggle";
+    repo = "elifouts-dotfiles";
+    rev = "9ce9ee8bec51c46d52b6eb264ef2b0c7ac2753d6";
+    hash = "sha256-jyY8siZ2j2W3/JmLpCa/yKM91qfAeo0Kfr2DR6e+ebA=";
   };
 in {
   programs.waybar.enable = true;

@@ -3,4 +3,5 @@
     bato
     batmon
   ];
+  services.tlp.enable = true;
 }

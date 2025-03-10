@@ -3,7 +3,7 @@
     username = "gradyb";
     homeDirectory = "/home/gradyb";
 
-    stateVersion = "24.11";
+    stateVersion = "25.05";
 
     packages = [
       pkgs.gyroflow
