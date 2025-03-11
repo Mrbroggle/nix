@@ -35,6 +35,13 @@
             silent = true;
             desc = "Toggle Neo-Tree";
           }
+          {
+            key = "<C-BS>";
+            mode = ["i"];
+            action = "<C-W>";
+            silent = true;
+            desc = "Ctrl backspace back <3";
+          }
         ];
 
         lsp = {

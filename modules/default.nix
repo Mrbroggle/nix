@@ -6,7 +6,6 @@
     ./locale.nix
     ./networking.nix
     ./user.nix
-    ./wm.nix
     ./sound.nix
     ./bluetooth.nix
     ./cli.nix
@@ -17,5 +16,6 @@
     ./multirotor.nix
     ./mail.nix
     ./stylix.nix
+    ./rclone.nix
   ];
 }

@@ -1,4 +1,9 @@
 _: {
+  imports = [
+    ./hyprpaper.nix
+    ./waybar.nix
+    ./swaync.nix
+  ];
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -13,7 +18,6 @@ _: {
         "waybar"
         "clipse -listen"
       ];
-
       xwayland = {
         force_zero_scaling = true;
       };
@@ -21,7 +25,6 @@ _: {
       "$terminal" = "alacritty";
       "$fileManager" = "dolphin";
       "$menu" = "wofi --show drun";
-
       general = {
         gaps_in = "5";
         gaps_out = "10";
@@ -153,6 +156,7 @@ _: {
         "$mainMod, F, fullscreen,"
         "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures"
         "$mainMod, V, exec, alacritty --class clipse -e clipse"
+        "CTRL_SHIFT, escape, exec, alacritty -e btop"
       ];
 
       bindm = [

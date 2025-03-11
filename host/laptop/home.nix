@@ -1,7 +1,6 @@
 {...}: {
   imports = [
-    ../../home/pcDefault.nix
-
+    ../../home/laptopDefault.nix
     ../../home.nix
   ];
 }
