@@ -1,2 +1,5 @@
 _: {
+  imports = [
+    ./kde6.nix
+  ];
 }
