@@ -38,11 +38,13 @@
         ga = "git add .";
         gc = "git commit";
         gp = "git push";
+        gf = "git fetch";
         gd = "git clone $argv";
         ani = "ani-cli $argv";
         anid = "ani-cli -d $argv";
         ls = "eza $argv";
         rs = "rstudio & disown & exit";
+        nsp = "nix-shell -p $argv";
       };
     };
   };

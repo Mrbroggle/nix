@@ -17,5 +17,6 @@
     ./mail.nix
     ./stylix.nix
     ./rclone.nix
+    ./plymouth.nix
   ];
 }

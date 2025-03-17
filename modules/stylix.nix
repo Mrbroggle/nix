@@ -11,7 +11,7 @@
     polarity = "dark";
     autoEnable = true;
     targets = {
-      plymouth.enable = true;
+      plymouth.enable = false;
     };
   };
 }

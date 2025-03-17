@@ -17,11 +17,13 @@
     stylix.url = "github:danth/stylix";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = {
     nixpkgs,
     home-manager,
+    nixos-hardware,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -49,6 +51,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
+          nixos-hardware.nixosModules.framework-13-7040-amd
           ./host/laptop.nix
           ./configuration.nix
           inputs.spicetify-nix.nixosModules.default

@@ -2,8 +2,8 @@
   dots = pkgs.fetchFromGitHub {
     owner = "Mrbroggle";
     repo = "elifouts-dotfiles";
-    rev = "9ce9ee8bec51c46d52b6eb264ef2b0c7ac2753d6";
-    hash = "sha256-jyY8siZ2j2W3/JmLpCa/yKM91qfAeo0Kfr2DR6e+ebA=";
+    rev = "243e4166c22b2804e586a2ae763c0a982a22ed85";
+    hash = "sha256-m3HBZi+dX3wP8zJ4O+kZnqgautPOzSTfNhv6JD3EpSs=";
   };
 in {
   programs.waybar.enable = true;

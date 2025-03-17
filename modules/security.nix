@@ -32,7 +32,6 @@
     serviceConfig.Type = "simple";
   };
   services = {
-    fprintd.enable = true;
     openssh.enable = true;
   };
 }

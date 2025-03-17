@@ -17,6 +17,7 @@
       btop.enable = true;
       neovim.enable = true;
       waybar.enable = lib.mkForce false;
+      swaync.enable = lib.mkForce true;
     };
   };
 }
