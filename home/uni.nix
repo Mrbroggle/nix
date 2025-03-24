@@ -10,6 +10,7 @@ in {
     zulu23
     zoom-us
     texliveFull
+    pandoc
     (pkgs.rstudioWrapper.override {
       packages = with pkgs.rPackages; [
         rmarkdown

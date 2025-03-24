@@ -32,7 +32,7 @@
         }
       ];
       shellAliases = {
-        enc = "doas nvim /etc/nixos/ ";
+        enc = "doas nvim /home/gradyb/etc/nixos/ ";
         cnc = "cd /etc/nixos/";
         nrs = "nh os switch /home/gradyb/etc/nixos/ $argv";
         ga = "git add .";
@@ -40,6 +40,7 @@
         gp = "git push";
         gf = "git fetch";
         gd = "git clone $argv";
+        gs = "git status";
         ani = "ani-cli $argv";
         anid = "ani-cli -d $argv";
         ls = "eza $argv";

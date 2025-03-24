@@ -15,9 +15,10 @@
       gtk.enable = true;
       spicetify.enable = true;
       btop.enable = true;
-      neovim.enable = true;
+      neovim.enable = false;
       waybar.enable = lib.mkForce false;
       swaync.enable = lib.mkForce true;
+      rstudio.enable = true;
     };
   };
 }

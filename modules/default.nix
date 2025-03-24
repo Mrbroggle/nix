@@ -18,5 +18,7 @@
     ./stylix.nix
     ./rclone.nix
     ./plymouth.nix
+    ./vulkan.nix
+    ./kanata.nix
   ];
 }
