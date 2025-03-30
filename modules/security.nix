@@ -1,14 +1,16 @@
 {...}: {
   security = {
-    doas.enable = true;
-    doas.extraRules = [
-      {
-        users = ["gradyb"];
+    doas = {
+      enable = true;
+      extraRules = [
+        {
+          users = ["gradyb"];
 
-        keepEnv = true;
-        noPass = true;
-      }
-    ];
+          keepEnv = true;
+          noPass = true;
+        }
+      ];
+    };
     sudo.extraRules = [
       {
         users = ["gradyb"];

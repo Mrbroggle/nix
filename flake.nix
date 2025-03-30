@@ -3,13 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    jerry.url = "github:justchokingaround/jerry";
-    lobster.url = "github:justchokingaround/lobster";
     hyprland.url = "github:hyprwm/Hyprland";
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +24,8 @@
     stylix.url = "flake:gradybstylix/rstudio-hm-module";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    jerry.url = "github:justchokingaround/jerry";
+    lobster.url = "github:justchokingaround/lobster";
   };
 
   outputs = {
@@ -36,7 +42,6 @@
           ./host/pc.nix
           ./configuration.nix
           inputs.spicetify-nix.nixosModules.default
-
           inputs.nvf.nixosModules.default
           inputs.stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
@@ -57,7 +62,6 @@
           ./host/laptop.nix
           ./configuration.nix
           inputs.spicetify-nix.nixosModules.default
-
           inputs.nvf.nixosModules.default
           inputs.stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager

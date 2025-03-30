@@ -3,10 +3,12 @@ _: {
     ./hyprpaper.nix
     ./waybar.nix
     ./swaync.nix
+    ./wlogout.nix
+    ./hypridle.nix
   ];
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
   wayland.windowManager.hyprland = {
     enable = true;
-
     settings = {
       exec-once = [
         "systemctl --user start hyprpolkitagent"
@@ -157,6 +159,7 @@ _: {
         "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures"
         "$mainMod, V, exec, alacritty --class clipse -e clipse"
         "CTRL_SHIFT, escape, exec, alacritty -e btop"
+        ", xf86poweroff , exec, wlogout"
       ];
 
       bindm = [

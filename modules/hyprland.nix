@@ -5,8 +5,6 @@
   ...
 }: {
   programs = {
-    hyprland.enable = true;
-    hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     /*
     regreet = {
       enable = true;
@@ -33,8 +31,10 @@
       autoLogin.enable = true;
       autoLogin.user = "gradyb";
     };
+    logind.extraConfig = ''
+      HandlePowerKey=ignore
+    '';
   };
-
   environment.systemPackages = with pkgs; [
     alacritty
     networkmanager
@@ -45,7 +45,6 @@
     clipse
     hyprshot
     hyprpaper
-    hypridle
     hyprlock
     hyprpolkitagent
   ];

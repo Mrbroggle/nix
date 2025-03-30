@@ -4,6 +4,7 @@
     hunspell
     hunspellDicts.en_US
     hunspellDicts.en_AU
+    zotero
   ];
   # Printer
   services.printing.enable = true;
