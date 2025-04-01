@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   imports = [
     ./hyprpaper.nix
     ./waybar.nix
@@ -9,6 +9,9 @@ _: {
   home.sessionVariables.NIXOS_OZONE_WL = "1";
   wayland.windowManager.hyprland = {
     enable = true;
+    plugins = [
+      pkgs.hyprlandPlugins.hyprscroller
+    ];
     settings = {
       exec-once = [
         "systemctl --user start hyprpolkitagent"

@@ -27,9 +27,13 @@
       sddm = {
         enable = true;
         wayland.enable = true;
+        settings = {
+          Autologin = {
+            Session = "hyprland.desktop";
+            User = "gradyb";
+          };
+        };
       };
-      autoLogin.enable = true;
-      autoLogin.user = "gradyb";
     };
     logind.extraConfig = ''
       HandlePowerKey=ignore
