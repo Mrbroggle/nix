@@ -1004,18 +1004,18 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1742431490,
-        "narHash": "sha256-8SRGIaU+JD6wZq5aaMFFTPy2ek0uRUSxEUjkxsMXZWU=",
-        "ref": "rstudio-hm-module",
-        "rev": "125a10005818240866f01a8ae620022d70f3400a",
-        "revCount": 700,
-        "type": "git",
-        "url": "file:///home/gradyb/Projects/stylix/"
+        "lastModified": 1743415371,
+        "narHash": "sha256-wpuNNxIqc7Z8dLtiGZFFDYtPDa9OI0XyXd/WDwdPntA=",
+        "owner": "mrbroggle",
+        "repo": "stylix",
+        "rev": "4a602ac4cb184d259f7de7ab7eee6a09db729501",
+        "type": "github"
       },
       "original": {
-        "id": "gradybstylix",
+        "owner": "mrbroggle",
         "ref": "rstudio-hm-module",
-        "type": "indirect"
+        "repo": "stylix",
+        "type": "github"
       }
     },
     "systems": {

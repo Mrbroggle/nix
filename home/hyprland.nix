@@ -11,6 +11,7 @@
     enable = true;
     plugins = [
       pkgs.hyprlandPlugins.hyprscroller
+      pkgs.hyprlandPlugins.hyprspace
     ];
     settings = {
       exec-once = [
@@ -117,6 +118,13 @@
         };
       };
 
+      plugin = {
+        scroller = {
+          column_widths = "one";
+          window_heights = "one";
+        };
+      };
+
       gestures = {
         workspace_swipe = true;
       };
@@ -136,6 +144,20 @@
         "$mainMod, right, movefocus, r"
         "$mainMod, up, movefocus, u"
         "$mainMod, down, movefocus, d"
+        "$mainMod, H, movefocus, l"
+        "$mainMod, L, movefocus, r"
+        "$mainMod, K, movefocus, u"
+        "$mainMod, J, movefocus, d"
+        "$mainMod SHIFT, right, resizeactive, 10 0"
+        "$mainMod SHIFT, left, resizeactive, -10 0"
+        "$mainMod SHIFT, up, resizeactive, 0 -10"
+        "$mainMod SHIFT, down, resizeactive, 0 10"
+        "$mainMod SHIFT, L, resizeactive, 10 0"
+        "$mainMod SHIFT, H, resizeactive, -10 0"
+        "$mainMod SHIFT, K, resizeactive, 0 -10"
+        "$mainMod SHIFT, J, resizeactive, 0 10"
+        "$mainMod CTRL, L, workspace, e+1"
+        "$mainMod CTRL, H, workspace, e-1"
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
         "$mainMod, 3, workspace, 3"
@@ -188,6 +210,7 @@
       windowrulev2 = [
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        "size 751 954, class:(Alacritty)"
         "float, class:(clipse)"
         "size 622 652, class:(clipse)"
         "stayfocused, class:(clipse)"

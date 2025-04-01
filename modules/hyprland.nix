@@ -29,11 +29,11 @@
         wayland.enable = true;
         settings = {
           Autologin = {
-            Session = "hyprland.desktop";
             User = "gradyb";
           };
         };
       };
+      sessionPackages = [pkgs.hyprland];
     };
     logind.extraConfig = ''
       HandlePowerKey=ignore

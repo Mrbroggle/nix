@@ -9,14 +9,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ##stylix.url = "github:danth/stylix";
-    ##stylix.url = "github:mrbroggle/stylix/rstudio-hm-module";
-    stylix.url = "flake:gradybstylix/rstudio-hm-module";
+    stylix.url = "github:mrbroggle/stylix/rstudio-hm-module";
+    ##stylix.url = "flake:gradybstylix/rstudio-hm-module";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     jerry.url = "github:justchokingaround/jerry";
