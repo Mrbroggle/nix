@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./hyprpaper.nix
     ./waybar.nix
@@ -106,11 +107,10 @@
       };
 
       input = {
+        sensitivity = "-0.25"; # -1.0 - 1.0, 0 means no modification.
         kb_layout = "us";
 
         follow_mouse = "1";
-
-        sensitivity = "0"; # -1.0 - 1.0, 0 means no modification.
 
         touchpad = {
           natural_scroll = true;
@@ -139,7 +139,7 @@
         "$mainMod, G, togglefloating,"
         "$mainMod, R, exec, $menu"
         "$mainMod, P, pseudo, # dwindle"
-        "$mainMod, J, togglesplit, # dwindle"
+        "$mainMod, U, togglesplit, # dwindle"
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"
         "$mainMod, up, movefocus, u"

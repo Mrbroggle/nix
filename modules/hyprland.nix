@@ -3,17 +3,18 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   programs = {
     /*
-    regreet = {
-      enable = true;
-      settings = lib.mkForce {
-        env = {
-          STATE_DIR = "/home/gradyb/.temp/";
+      regreet = {
+        enable = true;
+        settings = lib.mkForce {
+          env = {
+            STATE_DIR = "/home/gradyb/.temp/";
+          };
         };
       };
-    };
     */
   };
 
@@ -24,20 +25,34 @@
     };
     xserver.enable = true;
     displayManager = {
+      defaultSession = "hyprland";
       sddm = {
         enable = true;
         wayland.enable = true;
+        theme = "where_is_my_sddm_theme";
         settings = {
           Autologin = {
             User = "gradyb";
           };
         };
       };
-      sessionPackages = [pkgs.hyprland];
+      sessionPackages = [ pkgs.hyprland ];
     };
     logind.extraConfig = ''
       HandlePowerKey=ignore
     '';
+  };
+  programs = {
+    uwsm = {
+      enable = true;
+      waylandCompositors = {
+        hyprland = {
+          prettyName = "Hyprland";
+          comment = "Hyprland compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/Hyprland";
+        };
+      };
+    };
   };
   environment.systemPackages = with pkgs; [
     alacritty
@@ -51,5 +66,7 @@
     hyprpaper
     hyprlock
     hyprpolkitagent
+    where-is-my-sddm-theme
+    shikane
   ];
 }

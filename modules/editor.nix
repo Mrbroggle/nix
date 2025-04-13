@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -8,13 +9,19 @@
     ripgrep
     lazygit
     fd
+    glsl_analyzer
   ];
   programs.nvf = {
     enable = true;
     settings = {
       vim = {
+        luaConfigRC.glsl-lsp = ''
+          require'lspconfig'.glsl_analyzer.setup{} 
+        '';
         viAlias = true;
         vimAlias = true;
+        scrollOffset = 999;
+
         debugMode = {
           enable = false;
           level = 16;
@@ -23,6 +30,7 @@
         options = {
           tabstop = 2;
           shiftwidth = 2;
+
         };
         spellcheck = {
           enable = true;
@@ -30,21 +38,21 @@
         keymaps = [
           {
             key = "<leader>e";
-            mode = ["n"];
+            mode = [ "n" ];
             action = ":Neotree toggle<CR>";
             silent = true;
             desc = "Toggle Neo-Tree";
           }
           {
             key = "<C-BS>";
-            mode = ["i"];
+            mode = [ "i" ];
             action = "<C-W>";
             silent = true;
             desc = "Ctrl backspace back <3";
           }
           {
             key = "<leader><leader>";
-            mode = ["n"];
+            mode = [ "n" ];
             action = ":Telescope grep_string<CR>";
             silent = true;
             desc = "double space grep";
@@ -79,7 +87,11 @@
           enableExtraDiagnostics = true;
 
           # Languages that will be supported in default and maximal configurations.
-          nix.enable = true;
+          nix = {
+            enable = true;
+            treesitter.enable = true;
+            format.type = "nixfmt";
+          };
           markdown.enable = true;
 
           # Languages that are enabled in the maximal configuration.
@@ -153,24 +165,24 @@
           enable = true;
           name = "base16";
           /*
-          base16-colors = {
-                     base00 = "#24283b";
-                     base01 = "#16161e";
-                     base02 = "#343a52";
-                     base03 = "#444b6a";
-                     base04 = "#787c99";
-                     base05 = "#a9b1d6";
-                     base06 = "#cbccd1";
-                     base07 = "#d5d6db";
-                     base08 = "#c0caf5";
-                     base09 = "#a9b1d6";
-                     base0A = "#0db9d7";
-                     base0B = "#9ece6a";
-                     base0C = "#b4f9f8";
-                     base0D = "#2ac3de";
-                     base0E = "#bb9af7";
-                     base0F = "#f7768e";
-                   };
+            base16-colors = {
+                       base00 = "#24283b";
+                       base01 = "#16161e";
+                       base02 = "#343a52";
+                       base03 = "#444b6a";
+                       base04 = "#787c99";
+                       base05 = "#a9b1d6";
+                       base06 = "#cbccd1";
+                       base07 = "#d5d6db";
+                       base08 = "#c0caf5";
+                       base09 = "#a9b1d6";
+                       base0A = "#0db9d7";
+                       base0B = "#9ece6a";
+                       base0C = "#b4f9f8";
+                       base0D = "#2ac3de";
+                       base0E = "#bb9af7";
+                       base0F = "#f7768e";
+                     };
           */
           transparent = false;
         };
@@ -273,7 +285,10 @@
               nix = "110";
               ruby = "120";
               java = "130";
-              go = ["90" "130"];
+              go = [
+                "90"
+                "130"
+              ];
             };
           };
           fastaction.enable = true;

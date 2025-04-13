@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     vulkan-headers
     vulkan-tools
@@ -7,5 +8,6 @@
     vulkan-memory-allocator
     vulkan-utility-libraries
     vulkan-caps-viewer
+    wayland
   ];
 }
