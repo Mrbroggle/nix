@@ -3,5 +3,6 @@ _: {
     ./battery.nix
     ./hyprland.nix
     ./laptopScreen.nix
+    ./desktopDefault.nix
   ];
 }

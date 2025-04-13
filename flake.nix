@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +27,7 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
+    nixos-wsl,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -47,6 +49,29 @@
             };
           }
         ];
+      };
+      wsl-nixos = nixpkgs.lib.nixosSystem {
+	system = "x86_64-linux";
+	specialArgs = {inherit inputs;};
+	modules = [
+	./host/wsl.nix
+	./configuration.nix
+          inputs.nvf.nixosModules.default
+	  inputs.stylix.nixosModules.stylix
+              nixos-wsl.nixosModules.default
+          {
+            system.stateVersion = "25.05";
+            wsl.enable = true;
+          }
+          home-manager.nixosModules.home-manager
+	{
+	home-manager = {
+		useUserPackages = true;
+		users.gradyb = import ./host/wsl/home.nix;
+        	      backupFileExtension = "backup";
+		};
+		}
+	];
       };
       laptop-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

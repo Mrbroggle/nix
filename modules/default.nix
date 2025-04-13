@@ -1,7 +1,5 @@
 {...}: {
   imports = [
-    ./browser.nix
-    ./editor.nix
     ./editor.nix
     ./locale.nix
     ./networking.nix
@@ -9,16 +7,10 @@
     ./sound.nix
     ./bluetooth.nix
     ./cli.nix
-    ./desktopapps.nix
     ./security.nix
     ./storeConf.nix
-    ./office.nix
-    ./multirotor.nix
-    ./mail.nix
     ./stylix.nix
     ./rclone.nix
-    ./plymouth.nix
     ./vulkan.nix
-    ./kanata.nix
   ];
 }
