@@ -20,7 +20,6 @@
         '';
         viAlias = true;
         vimAlias = true;
-        scrollOffset = 999;
 
         debugMode = {
           enable = false;
@@ -28,6 +27,7 @@
           logFile = "/tmp/nvim.log";
         };
         options = {
+          scrolloff = 20;
           tabstop = 2;
           shiftwidth = 2;
 

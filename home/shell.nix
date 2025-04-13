@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs = {
     eza = {
       enable = true;
@@ -33,7 +34,7 @@
       ];
       shellAliases = {
         enc = "doas nvim /home/gradyb/etc/nixos/ ";
-        cnc = "cd /etc/nixos/";
+        cnc = "cd /home/gradyb/etc/nixos/";
         nrs = "nh os switch /home/gradyb/etc/nixos/ $argv";
         ga = "git add . && git status";
         gc = "git commit";

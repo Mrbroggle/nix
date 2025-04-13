@@ -1,11 +1,13 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   dots = pkgs.fetchFromGitHub {
     owner = "Mrbroggle";
     repo = "elifouts-dotfiles";
-    rev = "243e4166c22b2804e586a2ae763c0a982a22ed85";
-    hash = "sha256-m3HBZi+dX3wP8zJ4O+kZnqgautPOzSTfNhv6JD3EpSs=";
+    rev = "ae208586f7d8aa18f38da7213f8c692139527c1e";
+    hash = "sha256-vwkZ3Fdyf5c/SVA+Bx32d5FMfQ9lJgjui4JQLr9BVAM=";
   };
-in {
+in
+{
   programs.waybar.enable = true;
   xdg.configFile."waybar" = {
     source = "${dots}/.config/waybar";

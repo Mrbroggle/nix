@@ -43,14 +43,13 @@
         enabledExtensions = with spicePkgs.extensions; [
           adblock
           hidePodcasts
-          shuffle # shuffle+ (special characters are sanitized out of extension names)
+          shuffle
         ];
         enabledCustomApps = with spicePkgs.apps; [
           newReleases
           ncsVisualizer
         ];
         enabledSnippets = with spicePkgs.snippets; [
-          rotatingCoverart
           pointer
         ];
       };
