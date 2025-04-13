@@ -1,10 +1,11 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./browser.nix
-    ./desktopApps.nix
+    ./desktopapps.nix
     ./office.nix
     ./plymouth.nix
-    ./kanata
+    ./kanata.nix
     ./multirotor.nix
     ./mail.nix
   ];
