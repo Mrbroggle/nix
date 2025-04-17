@@ -18,4 +18,8 @@ _: {
     [ViewPropertiesDialog]
     1536x1024 screen: Window-Maximized=true
   '';
+
+  nix.settings = {
+    warn-dirty = false;
+  };
 }

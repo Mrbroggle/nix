@@ -1,5 +1,5 @@
 {
-  description = "A simple NixOS flake";
+  description = "My NixOS";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -21,6 +21,7 @@
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     jerry.url = "github:justchokingaround/jerry";
     lobster.url = "github:justchokingaround/lobster";
+    niri.url = "github:sodiboo/niri-flake";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";

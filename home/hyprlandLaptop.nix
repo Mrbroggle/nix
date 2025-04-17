@@ -50,9 +50,9 @@ _: {
       "XCURSOR_SIZE,24"
     ];
     /*
-    animations = {
-      enabled = "false";
-    };
+      animations = {
+        enabled = "false";
+      };
     */
     bind = [
       ", code:232, exec, brightnessctl set -10% > /dev/null"

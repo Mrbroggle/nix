@@ -7,6 +7,14 @@
     ./wlogout.nix
     ./hypridle.nix
   ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
   home.sessionVariables.NIXOS_OZONE_WL = "1";
   wayland.windowManager.hyprland = {
     enable = true;
@@ -183,6 +191,7 @@
         "$mainMod, F, fullscreen,"
         "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures"
         "$mainMod, V, exec, alacritty --class clipse -e clipse"
+        "$mainMod, N, exec, swaync-client -t"
         "CTRL_SHIFT, escape, exec, alacritty -e btop"
         ", xf86poweroff , exec, wlogout"
       ];

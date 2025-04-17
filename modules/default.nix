@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./editor.nix
     ./locale.nix
@@ -12,5 +13,6 @@
     ./stylix.nix
     ./rclone.nix
     ./vulkan.nix
+    ./cachix.nix
   ];
 }

@@ -15,6 +15,14 @@
     enable = true;
     settings = {
       vim = {
+        extraPlugins = with pkgs.vimPlugins; {
+          stay-centered = {
+            package = stay-centered-nvim;
+            setup = "require('stay-centered').setup({
+              disable_on_mouse = true,
+            })";
+          };
+        };
         luaConfigRC.glsl-lsp = ''
           require'lspconfig'.glsl_analyzer.setup{} 
         '';

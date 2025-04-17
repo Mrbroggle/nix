@@ -47,6 +47,7 @@
         ls = "eza $argv";
         rs = "rstudio & disown & exit";
         nsp = "nix-shell -p $argv";
+        nrn = "nix run nixpkgs#$argv";
       };
     };
   };
