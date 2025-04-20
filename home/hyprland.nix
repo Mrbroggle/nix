@@ -2,10 +2,11 @@
 {
   imports = [
     ./hyprpaper.nix
-    ./waybar.nix
-    ./swaync.nix
+    # ./waybar.nix
+    # ./swaync.nix
     ./wlogout.nix
     ./hypridle.nix
+    ./hyprpanel.nix
   ];
   xdg.portal = {
     enable = true;
@@ -25,12 +26,12 @@
     settings = {
       exec-once = [
         "systemctl --user start hyprpolkitagent"
-        "swaync"
+        # "swaync"
+        # "waybar"
         "hypilde"
         "hyprpaper"
         "udiskie"
         "nm-applet &"
-        "waybar"
         "clipse -listen"
       ];
       xwayland = {

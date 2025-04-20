@@ -1,9 +1,10 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./dots.nix
     ./shell.nix
     ./uni.nix
     ./stylix.nix
-    ./protondrive.nix
+    # ./protondrive.nix
   ];
 }
