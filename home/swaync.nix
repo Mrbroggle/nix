@@ -16,4 +16,5 @@ in
       source = "${dots}/.config/swaync/config.json";
     };
   };
+  wayland.windowManager.hyprland.settings.exec-once = [ "swaync" ];
 }

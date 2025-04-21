@@ -35,7 +35,7 @@
       shellAliases = {
         enc = "doas nvim /home/gradyb/etc/nixos/ ";
         cnc = "cd /home/gradyb/etc/nixos/";
-        nrs = "nh os switch /home/gradyb/etc/nixos/ $argv";
+        nrs = "nh os switch -- $argv";
         ga = "git add . && git status";
         gc = "git commit";
         gp = "git push";

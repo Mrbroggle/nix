@@ -75,7 +75,7 @@
             {
               home-manager = {
                 useUserPackages = true;
-                users.gradyb = import ./host/pc/home.nix;
+                users.gradyb = ./host/pc/home.nix;
                 backupFileExtension = "backup";
               };
             }
@@ -101,7 +101,7 @@
             {
               home-manager = {
                 useUserPackages = true;
-                users.gradyb = import ./host/wsl/home.nix;
+                users.gradyb = ./host/wsl/home.nix;
                 backupFileExtension = "backup";
               };
             }
@@ -122,15 +122,11 @@
             {
               home-manager = {
                 useUserPackages = true;
-                users.gradyb = import ./host/laptop/home.nix;
+                users.gradyb = ./host/laptop/home.nix;
                 backupFileExtension = "backup";
               };
             }
           ];
-        };
-        zen-browser = {
-          url = "github:0xc000022070/zen-browser-flake";
-          inputs.nixpkgs.follows = "nixpkgs";
         };
       };
     };

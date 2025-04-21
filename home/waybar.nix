@@ -13,4 +13,5 @@ in
     source = "${dots}/.config/waybar";
     recursive = true;
   };
+  wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
 }
