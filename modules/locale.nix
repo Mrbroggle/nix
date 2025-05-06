@@ -1,8 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Set your time zone.
   services = {
     automatic-timezoned.enable = true;
-    tzupdate.enable = true;
     localtimed.enable = true;
     geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
   };

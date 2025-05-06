@@ -3,8 +3,8 @@ let
   dots = pkgs.fetchFromGitHub {
     owner = "Mrbroggle";
     repo = "elifouts-dotfiles";
-    rev = "ae208586f7d8aa18f38da7213f8c692139527c1e";
-    hash = "sha256-vwkZ3Fdyf5c/SVA+Bx32d5FMfQ9lJgjui4JQLr9BVAM=";
+    rev = "e1ebaf981af0cf0e57c75b85114b756b20c99169";
+    hash = "sha256-HRxIs0G5TZlGOSICON9Yv4H81VQphDn0DuWiKKQtbjg=";
   };
 in
 {

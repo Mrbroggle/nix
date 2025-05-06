@@ -6,6 +6,7 @@
     ./swaync.nix
     ./wlogout.nix
     ./hypridle.nix
+    ./desktopApps.nix
     # ./hyprpanel.nix
   ];
   xdg.portal = {
@@ -145,6 +146,7 @@
         "$mainMod, E, exec, $fileManager"
         "$mainMod, G, togglefloating,"
         "$mainMod, R, exec, $menu"
+        "$mainMod, B, exec, vivaldi"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, U, togglesplit, # dwindle"
         "$mainMod, left, movefocus, l"

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home = {
     username = "gradyb";
     homeDirectory = "/home/gradyb";
@@ -6,7 +7,6 @@
     stateVersion = "25.05";
 
     packages = [
-      pkgs.gyroflow
     ];
 
     file = {

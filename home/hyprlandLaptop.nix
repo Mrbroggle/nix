@@ -13,6 +13,8 @@ _: {
           {
             criteria = "eDP-1";
             scale = 1.875;
+            # scale = 1.0;
+            # mode = "1920x1200@120";
             status = "enable";
           }
         ];
