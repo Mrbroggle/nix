@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   imports = [
     ./dots.nix
     ./shell.nix

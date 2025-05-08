@@ -48,91 +48,85 @@
       nixos-hardware,
       nixos-wsl,
       hyprpanel,
-      winapps,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
-
       pkgs = import nixpkgs {
+        inherit pkgs;
         inherit system;
         overlays = [
-          inputs.nixpkgs-wayland.overlay
           inputs.hyprpanel.overlay
         ];
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = _: true;
+
+        };
       };
+
+      framework-module = nixos-hardware.nixosModules.framework-13-7040-amd;
+
+      wsl-module = [
+        nixos-wsl.nixosModules.default
+
+        {
+          system.stateVersion = "25.05";
+          wsl.enable = true;
+        }
+      ];
+
+      defaultUser = "gradyb";
+      systems = [
+        "laptop-nixos"
+        "pc-nixos"
+        "wsl-nixos"
+      ];
 
     in
     {
-      nixosConfigurations = {
-        pc-nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./host/pc.nix
-            ./configuration.nix
-            inputs.spicetify-nix.nixosModules.default
-            inputs.nvf.nixosModules.default
-            inputs.stylix.nixosModules.stylix
-            lix-module.nixosModules.default
+      nixosConfigurations = builtins.listToAttrs (
+        map (hostName: {
+          name = hostName;
+          value = nixpkgs.lib.nixosSystem {
+            inherit system;
+            inherit pkgs;
+            specialArgs = {
+              inherit inputs system;
+              inherit defaultUser hostName;
+            };
+            modules = [
+              (
+                { lib, ... }:
+                {
+                  imports =
+                    [
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useUserPackages = true;
-                users.gradyb = ./host/pc/home.nix;
-                backupFileExtension = "backup";
-              };
-            }
-          ];
-        };
-        wsl-nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./host/wsl.nix
-            ./configuration.nix
-            inputs.nvf.nixosModules.default
-            inputs.stylix.nixosModules.stylix
-            lix-module.nixosModules.default
-            nixos-wsl.nixosModules.default
-            { nixpkgs.overlays = [ inputs.hyprpanel.overlay ]; }
+                      ./configuration.nix
 
-            {
-              system.stateVersion = "25.05";
-              wsl.enable = true;
-            }
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useUserPackages = true;
-                users.gradyb = ./host/wsl/home.nix;
-                backupFileExtension = "backup";
-              };
-            }
-          ];
-        };
-        laptop-nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            nixos-hardware.nixosModules.framework-13-7040-amd
-            ./host/laptop.nix
-            ./configuration.nix
-            inputs.spicetify-nix.nixosModules.default
-            inputs.nvf.nixosModules.default
-            inputs.stylix.nixosModules.stylix
-            lix-module.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useUserPackages = true;
-                users.gradyb = ./host/laptop/home.nix;
-                backupFileExtension = "backup";
-              };
-            }
-          ];
-        };
-      };
+                      home-manager.nixosModules.home-manager
+                      inputs.spicetify-nix.nixosModules.default
+                      inputs.nvf.nixosModules.default
+                      inputs.stylix.nixosModules.stylix
+                      lix-module.nixosModules.default
+
+                      ./host/${hostName}.nix
+                      {
+                        home-manager = {
+                          useGlobalPkgs = true;
+                          useUserPackages = true;
+                          users.gradyb = ./host/${hostName}/home.nix;
+                          backupFileExtension = "backup";
+                        };
+                      }
+                    ]
+                    ++ (lib.optionals (hostName == "laptop-nixos") [ framework-module ])
+                    ++ (lib.optionals (hostName == "wsl-nixos") [ wsl-module ]);
+                }
+              )
+            ];
+          };
+        }) systems
+      );
     };
 }
