@@ -1,7 +1,5 @@
 {
   pkgs,
-  inputs,
-  lib,
   ...
 }:
 {
@@ -70,7 +68,6 @@
     alacritty
     networkmanager
     wofi
-    swaynotificationcenter
     udiskie
     wl-clipboard
     clipse
@@ -80,5 +77,6 @@
     hyprpolkitagent
     where-is-my-sddm-theme
     shikane
+    hyprpanel
   ];
 }

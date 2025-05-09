@@ -32,6 +32,7 @@
         "udiskie"
         "nm-applet &"
         "clipse -listen"
+        # "hyprpanel"
       ];
       xwayland = {
         force_zero_scaling = true;
@@ -193,7 +194,6 @@
         "$mainMod, F, fullscreen,"
         "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures"
         "$mainMod, V, exec, alacritty --class clipse -e clipse"
-        "$mainMod, N, exec, swaync-client -t"
         "CTRL_SHIFT, escape, exec, alacritty -e btop"
         ", xf86poweroff , exec, wlogout"
       ];

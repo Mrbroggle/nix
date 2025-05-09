@@ -1,8 +1,8 @@
 {
   pkgs,
-  lib,
   ...
-}: {
+}:
+{
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
@@ -16,8 +16,8 @@
       spicetify.enable = true;
       btop.enable = true;
       neovim.enable = false;
-      waybar.enable = lib.mkForce false;
-      swaync.enable = lib.mkForce true;
+      waybar.enable = true;
+      swaync.enable = true;
       rstudio.enable = true;
     };
   };

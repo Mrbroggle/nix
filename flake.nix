@@ -65,7 +65,9 @@
         };
       };
 
-      framework-module = nixos-hardware.nixosModules.framework-13-7040-amd;
+      laptop-module = [
+        nixos-hardware.nixosModules.framework-13-7040-amd
+      ];
 
       wsl-module = [
         nixos-wsl.nixosModules.default
@@ -74,6 +76,10 @@
           system.stateVersion = "25.05";
           wsl.enable = true;
         }
+      ];
+
+      pc-module = [
+
       ];
 
       defaultUser = "gradyb";
@@ -101,7 +107,7 @@
                 {
                   imports =
                     [
-
+                      { _module.args = { inherit inputs; }; }
                       ./configuration.nix
 
                       home-manager.nixosModules.home-manager
@@ -120,8 +126,9 @@
                         };
                       }
                     ]
-                    ++ (lib.optionals (hostName == "laptop-nixos") [ framework-module ])
-                    ++ (lib.optionals (hostName == "wsl-nixos") [ wsl-module ]);
+                    ++ (lib.optionals (hostName == "laptop-nixos") laptop-module)
+                    ++ (lib.optionals (hostName == "pc-nixos") pc-module)
+                    ++ (lib.optionals (hostName == "wsl-nixos") wsl-module);
                 }
               )
             ];
