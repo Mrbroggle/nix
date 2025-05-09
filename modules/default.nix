@@ -3,7 +3,7 @@
   imports = [
     ./editor.nix
     ./locale.nix
-    ./networking.nix
+    ./tailscale.nix
     ./user.nix
     ./sound.nix
     ./bluetooth.nix

@@ -9,14 +9,8 @@
     # };
   };
   # networking.networkmanager.wifi.backend = "iwd";
-  services = {
-    tailscale = {
-      enable = true;
-      useRoutingFeatures = "both";
-    };
-    # dnsmasq.enable = true;
-  };
 
+  # dnsmasq.enable = true;
   # environment.systemPackages = with pkgs; [
   #   nftables
   #   dnsmasq

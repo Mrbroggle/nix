@@ -20,6 +20,7 @@
 
   services = {
     udisks2.enable = true;
+    smartd.enable = true;
     gvfs.enable = true;
   };
 

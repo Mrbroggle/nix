@@ -9,5 +9,6 @@
     ./multirotor.nix
     ./mail.nix
     ./winapps.nix
+    ./networking.nix
   ];
 }
