@@ -77,6 +77,6 @@
     hyprpolkitagent
     where-is-my-sddm-theme
     shikane
-    hyprpanel
+    # hyprpanel
   ];
 }
