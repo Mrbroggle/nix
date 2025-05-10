@@ -12,14 +12,15 @@
         reload_style_on_change = true;
         modules-left = [
           "clock"
-          "custom/pacman"
           "tray"
         ];
         modules-center = [
           "hyprland/workspaces"
         ];
         modules-right = [
-          "group/expand"
+          "cpu"
+          "ram"
+          "temperature"
           "bluetooth"
           "network"
           "battery"
@@ -63,7 +64,7 @@
           };
         };
         network = {
-          format-wifi = "";
+          format-wifi = " ";
           format-ethernet = "";
           format-disconnected = "";
           tooltip-format-disconnected = "Error";
@@ -102,22 +103,6 @@
             "󰂂"
             "󰁹"
           ];
-        };
-        "custom/expand" = {
-          format = "";
-          tooltip = false;
-        };
-        "custom/endpoint" = {
-          format = "|";
-          tooltip = false;
-        };
-        "group/expand" = {
-          orientation = "horizontal";
-          drawer = {
-            transition-duration = 600;
-            transition-to-left = true;
-            click-to-reveal = true;
-          };
         };
         cpu = {
           format = "󰻠";

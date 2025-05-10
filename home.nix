@@ -1,16 +1,9 @@
-{ pkgs, ... }:
-{
+_: {
   home = {
     username = "gradyb";
     homeDirectory = "/home/gradyb";
 
     stateVersion = "25.05";
-
-    packages = [
-    ];
-
-    file = {
-    };
 
     sessionVariables = {
     };

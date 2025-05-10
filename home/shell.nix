@@ -45,7 +45,7 @@
         ga = "git add . && git status";
         gc = "git commit";
         gp = "git push";
-        gf = "git fetch";
+        gf = "git pull";
         gd = "git clone $argv";
         gs = "git status";
         ani = "ani-cli $argv";

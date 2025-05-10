@@ -47,6 +47,7 @@
     }@inputs:
     let
       system = "x86_64-linux";
+      ## Modifies nixpkgs globally for overlays and unfree
       pkgs = import nixpkgs {
         inherit pkgs;
         inherit system;
@@ -60,8 +61,23 @@
         };
       };
 
+      ## Defines user and hostnames
+      defaultUser = "gradyb";
+      systems = [
+        "laptop-nixos"
+        "pc-nixos"
+        "wsl-nixos"
+        "nas-nixos"
+      ];
+
+      ## Modules for specific hosts
       laptop-module = [
         nixos-hardware.nixosModules.framework-13-7040-amd
+        inputs.spicetify-nix.nixosModules.default
+      ];
+
+      pc-module = [
+        inputs.spicetify-nix.nixosModules.default
       ];
 
       wsl-module = [
@@ -73,17 +89,7 @@
         }
       ];
 
-      pc-module = [
-
-      ];
-
-      defaultUser = "gradyb";
-      systems = [
-        "laptop-nixos"
-        "pc-nixos"
-        "wsl-nixos"
-      ];
-
+      nas-module = [ ];
     in
     {
       nixosConfigurations = builtins.listToAttrs (
@@ -96,8 +102,10 @@
               inherit inputs system;
               inherit defaultUser hostName;
             };
+            ##Imports modules
             modules = [
               (
+                ## Function that includes lib for optionals
                 { lib, ... }:
                 {
                   imports =
@@ -105,12 +113,15 @@
                       { _module.args = { inherit inputs; }; }
                       ./configuration.nix
 
+                      ## Imports modules used in everything
                       home-manager.nixosModules.home-manager
-                      inputs.spicetify-nix.nixosModules.default
                       inputs.nvf.nixosModules.default
                       inputs.stylix.nixosModules.stylix
 
+                      ## Imports files from hosts/
                       ./host/${hostName}.nix
+                      ## Imports home-manager from hosts/
+                      ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
                       {
                         home-manager = {
                           useGlobalPkgs = true;
@@ -120,9 +131,11 @@
                         };
                       }
                     ]
+                    ##optionally adds modules based of hostname
                     ++ (lib.optionals (hostName == "laptop-nixos") laptop-module)
                     ++ (lib.optionals (hostName == "pc-nixos") pc-module)
-                    ++ (lib.optionals (hostName == "wsl-nixos") wsl-module);
+                    ++ (lib.optionals (hostName == "wsl-nixos") wsl-module)
+                    ++ (lib.optionals (hostName == "nas-nixos") nas-module);
                 }
               )
             ];
