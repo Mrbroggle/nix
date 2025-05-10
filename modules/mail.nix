@@ -1,7 +1,21 @@
-{pkgs, ...}: {
-  services.protonmail-bridge = {
-    enable = true;
-    path = with pkgs; [pass gnome-keyring];
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
+  options = {
+    mail.enable = lib.mkOption { default = true; };
   };
-  programs.thunderbird.enable = true;
+  config = lib.mkIf config.mail.enable {
+    services.protonmail-bridge = {
+      enable = true;
+      path = with pkgs; [
+        pass
+        gnome-keyring
+      ];
+    };
+    programs.thunderbird.enable = true;
+  };
 }

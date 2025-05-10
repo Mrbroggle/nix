@@ -1,114 +1,124 @@
-{ pkgs, ... }:
 {
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
-    };
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
+  options = {
+    shell.enable = lib.mkOption { default = true; };
   };
-  programs = {
-    eza = {
-      enable = true;
-      icons = "always";
-      enableFishIntegration = true;
-    };
-    thefuck.enable = true;
-    fish = {
-      enable = true;
-      interactiveShellInit = ''
-        direnv hook fish | source
-
-                fastfetch
-      '';
-      plugins = with pkgs.fishPlugins; [
-        {
-          name = "grc";
-          inherit (grc) src;
-        }
-        {
-          name = "sponge";
-          inherit (sponge) src;
-        }
-        {
-          name = "puffer";
-          inherit (puffer) src;
-        }
-        {
-          name = "done";
-          inherit (done) src;
-        }
-      ];
-      shellAliases = {
-        enc = "doas nvim /home/gradyb/etc/nixos/ ";
-        cnc = "cd /home/gradyb/etc/nixos/";
-        nrs = "nh os switch -- $argv";
-        ga = "git add . && git status";
-        gc = "git commit";
-        gp = "git push";
-        gf = "git pull";
-        gd = "git clone $argv";
-        gs = "git status";
-        ani = "ani-cli $argv";
-        anid = "ani-cli -d $argv";
-        ls = "eza $argv";
-        rs = "rstudio & disown & exit";
-        nsp = "nix-shell -p $argv";
-        nrn = "nix run nixpkgs#$argv";
+  config = lib.mkIf config.shell.enable {
+    dconf.settings = {
+      "org/virt-manager/virt-manager/connections" = {
+        autoconnect = [ "qemu:///system" ];
+        uris = [ "qemu:///system" ];
       };
     };
+    programs = {
+      eza = {
+        enable = true;
+        icons = "always";
+        enableFishIntegration = true;
+      };
+      thefuck.enable = true;
+      fish = {
+        enable = true;
+        interactiveShellInit = ''
+          direnv hook fish | source
+
+                  fastfetch
+        '';
+        plugins = with pkgs.fishPlugins; [
+          {
+            name = "grc";
+            inherit (grc) src;
+          }
+          {
+            name = "sponge";
+            inherit (sponge) src;
+          }
+          {
+            name = "puffer";
+            inherit (puffer) src;
+          }
+          {
+            name = "done";
+            inherit (done) src;
+          }
+        ];
+        shellAliases = {
+          enc = "doas nvim /home/gradyb/etc/nixos/ ";
+          cnc = "cd /home/gradyb/etc/nixos/";
+          nrs = "nh os switch -- $argv";
+          ga = "git add . && git status";
+          gc = "git commit";
+          gp = "git push";
+          gf = "git pull";
+          gd = "git clone $argv";
+          gs = "git status";
+          ani = "ani-cli $argv";
+          anid = "ani-cli -d $argv";
+          ls = "eza $argv";
+          rs = "rstudio & disown & exit";
+          nsp = "nix-shell -p $argv";
+          nrn = "nix run nixpkgs#$argv";
+        };
+      };
+    };
+    xdg.configFile."/fish/functions/fish_promp.fish".text = ''
+      function fish_prompt --description 'Write out the prompt'
+          set -l laststatus $status
+
+          set -l git_info
+          if set -l git_branch (command git symbolic-ref HEAD 2>/dev/null | string replace refs/heads/ \'\')
+              set git_branch (set_color -o blue)"$git_branch"
+              set -l git_status
+              if not command git diff-index --quiet HEAD --
+                  if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
+                      echo $count | read -l ahead behind
+                      if test "$ahead" -gt 0
+                          set git_status "$git_status"(set_color red)⬆
+                      end
+                      if test "$behind" -gt 0
+                          set git_status "$git_status"(set_color red)⬇
+                      end
+                  end
+                  for i in (git status --porcelain | string sub -l 2 | sort | uniq)
+                      switch $i
+                          case "."
+                              set git_status "$git_status"(set_color green)✚
+                          case " D"
+                              set git_status "$git_status"(set_color red)✖
+                          case "*M*"
+                              set git_status "$git_status"(set_color green)✱
+                          case "*R*"
+                              set git_status "$git_status"(set_color purple)➜
+                          case "*U*"
+                              set git_status "$git_status"(set_color brown)═
+                          case "??"
+                              set git_status "$git_status"(set_color red)≠
+                      end
+                  end
+              else
+                  set git_status (set_color green):
+              end
+              set git_info "(git$git_status$git_branch"(set_color white)")"
+          end
+
+          # Disable PWD shortening by default.
+          set -q fish_prompt_pwd_dir_length
+          or set -lx fish_prompt_pwd_dir_length 0
+
+          set_color -b black
+          printf '%s%s%s%s%s%s%s%s%s%s%s%s%s' (set_color -o white) '❰' (set_color green) $USER (set_color white) '❙' (set_color yellow) (prompt_pwd) (set_color white) $git_info (set_color white) '❱' (set_color white)
+          if test $laststatus -eq 0
+              printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
+          else
+              printf "%s✘%s≻%s " (set_color -o red) (set_color white) (set_color normal)
+          end
+      end
+
+    '';
   };
-  xdg.configFile."/fish/functions/fish_promp.fish".text = ''
-    function fish_prompt --description 'Write out the prompt'
-        set -l laststatus $status
-
-        set -l git_info
-        if set -l git_branch (command git symbolic-ref HEAD 2>/dev/null | string replace refs/heads/ \'\')
-            set git_branch (set_color -o blue)"$git_branch"
-            set -l git_status
-            if not command git diff-index --quiet HEAD --
-                if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
-                    echo $count | read -l ahead behind
-                    if test "$ahead" -gt 0
-                        set git_status "$git_status"(set_color red)⬆
-                    end
-                    if test "$behind" -gt 0
-                        set git_status "$git_status"(set_color red)⬇
-                    end
-                end
-                for i in (git status --porcelain | string sub -l 2 | sort | uniq)
-                    switch $i
-                        case "."
-                            set git_status "$git_status"(set_color green)✚
-                        case " D"
-                            set git_status "$git_status"(set_color red)✖
-                        case "*M*"
-                            set git_status "$git_status"(set_color green)✱
-                        case "*R*"
-                            set git_status "$git_status"(set_color purple)➜
-                        case "*U*"
-                            set git_status "$git_status"(set_color brown)═
-                        case "??"
-                            set git_status "$git_status"(set_color red)≠
-                    end
-                end
-            else
-                set git_status (set_color green):
-            end
-            set git_info "(git$git_status$git_branch"(set_color white)")"
-        end
-
-        # Disable PWD shortening by default.
-        set -q fish_prompt_pwd_dir_length
-        or set -lx fish_prompt_pwd_dir_length 0
-
-        set_color -b black
-        printf '%s%s%s%s%s%s%s%s%s%s%s%s%s' (set_color -o white) '❰' (set_color green) $USER (set_color white) '❙' (set_color yellow) (prompt_pwd) (set_color white) $git_info (set_color white) '❱' (set_color white)
-        if test $laststatus -eq 0
-            printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
-        else
-            printf "%s✘%s≻%s " (set_color -o red) (set_color white) (set_color normal)
-        end
-    end
-
-  '';
 }

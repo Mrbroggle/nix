@@ -1,19 +1,32 @@
-{ pkgs, ... }:
+{ lib, config, ... }:
 {
-  # networking.wireless.iwd.enable = true;
-  networking = {
-    networkmanager.enable = true;
-    # nftables.enable = true;
-    # firewall = {
-    #   enable = true;
-    # };
+  options = {
+    networking.enable = lib.mkOption { default = true; };
+    tailscale.enable = lib.mkOption { default = true; };
   };
-  # networking.networkmanager.wifi.backend = "iwd";
+  config = {
 
-  # dnsmasq.enable = true;
-  # environment.systemPackages = with pkgs; [
-  #   nftables
-  #   dnsmasq
-  # ];
+    # networking.wireless.iwd.enable = true;
+    networking = lib.mkIf config.networking.enable {
+      networkmanager.enable = true;
+      # nftables.enable = true;
+      # firewall = {
+      #   enable = true;
+      # };
+    };
+    # networking.networkmanager.wifi.backend = "iwd";
 
+    # dnsmasq.enable = true;
+    # environment.systemPackages = with pkgs; [
+    #   nftables
+    #   dnsmasq
+    # ];
+
+    services = lib.mkIf config.tailscale.enable {
+      tailscale = {
+        enable = true;
+        useRoutingFeatures = "both";
+      };
+    };
+  };
 }

@@ -1,8 +1,19 @@
-_: {
-  networking.hostName = "wsl-nixos"; # Define your hostname.
-  imports = [
-    ../modules/default.nix
-    ../modules/wslDefault.nix
-  ];
+{ inputs, ... }:
+{
   wsl.defaultUser = "gradyb";
+  imports = [ (inputs.import-tree ../modules) ];
+
+  battery.enable = false;
+  hyprland.enable = false;
+  laptopScreen.enable = false;
+  kde6.enable = false;
+  browser.enable = false;
+  desktopapps.enable = false;
+  office.enable = false;
+  plymouth.enable = false;
+  kanata.enable = false;
+  multirotor.enable = false;
+  mail.enable = false;
+  winapps.enable = false;
+  networking.enable = false;
 }

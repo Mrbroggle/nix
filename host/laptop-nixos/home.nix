@@ -1,7 +1,10 @@
 { ... }:
 {
   imports = [
-    ../../home/hosts/laptop-nixos.nix
     ../../home.nix
   ];
+
+  protondrive.enable = false;
+  hyprpanel.enable = false;
+  hyprlandLaptop.enable = true;
 }

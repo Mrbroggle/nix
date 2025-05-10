@@ -1,4 +1,5 @@
-_: {
+{ inputs, ... }:
+{
   home = {
     username = "gradyb";
     homeDirectory = "/home/gradyb";
@@ -9,7 +10,7 @@ _: {
     };
   };
   imports = [
-    ./home/default.nix
+    (inputs.import-tree ./home)
   ];
 
   programs.home-manager.enable = true;

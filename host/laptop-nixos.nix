@@ -1,9 +1,5 @@
-{ ... }:
+{ inputs, ... }:
 {
-  networking.hostName = "laptop-nixos"; # Define your hostname.
-  imports = [
-    ../modules/default.nix
-    ../modules/laptopDefault.nix
-    ./laptop-nixos/laptop-hardware-configuration.nix
-  ];
+  imports = [ (inputs.import-tree ../modules) ];
+  kde6.enable = false;
 }

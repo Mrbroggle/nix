@@ -9,6 +9,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    import-tree.url = "github:vic/import-tree";
+
     hyprpanel = {
       url = "github:jas-singhfsu/hyprpanel";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -113,6 +115,8 @@
                       { _module.args = { inherit inputs; }; }
                       ./configuration.nix
 
+                      ## Sets hhostname
+                      { networking.hostName = hostName; }
                       ## Imports modules used in everything
                       home-manager.nixosModules.home-manager
                       inputs.nvf.nixosModules.default
@@ -120,10 +124,12 @@
 
                       ## Imports files from hosts/
                       ./host/${hostName}.nix
+                      ./host/${hostName}/hardware-configuration.nix
                       ## Imports home-manager from hosts/
                       ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
                       {
                         home-manager = {
+                          extraSpecialArgs = { inherit inputs; };
                           useGlobalPkgs = true;
                           useUserPackages = true;
                           users.gradyb = ./host/${hostName}/home.nix;

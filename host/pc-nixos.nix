@@ -1,9 +1,7 @@
-{ ... }:
+{ inputs, ... }:
 {
-  networking.hostName = "pc-nixos"; # Define your hostname.
-  imports = [
-    ../modules/default.nix
-    ../modules/pcDefault.nix
-    ./pc-nixos/pc-hardware-configuration.nix
-  ];
+  imports = [ (inputs.import-tree ../modules) ];
+  battery.enable = false;
+  hyprland.enable = false;
+  laptopScreen.enable = false;
 }
