@@ -4,4 +4,5 @@
   battery.enable = false;
   hyprland.enable = false;
   laptopScreen.enable = false;
+  multirotor.enable = false;
 }
