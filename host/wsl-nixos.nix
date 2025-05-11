@@ -5,10 +5,11 @@
 
   battery.enable = false;
   hyprland.enable = false;
+  libs.enable = false;
   laptopScreen.enable = false;
   kde6.enable = false;
   browser.enable = false;
-  desktopapps.enable = false;
+  desktopApps.enable = false;
   office.enable = false;
   plymouth.enable = false;
   kanata.enable = false;

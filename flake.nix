@@ -75,11 +75,9 @@
       ## Modules for specific hosts
       laptop-module = [
         nixos-hardware.nixosModules.framework-13-7040-amd
-        inputs.spicetify-nix.nixosModules.default
       ];
 
       pc-module = [
-        inputs.spicetify-nix.nixosModules.default
       ];
 
       wsl-module = [
@@ -120,6 +118,7 @@
                       ## Imports modules used in everything
                       home-manager.nixosModules.home-manager
                       inputs.nvf.nixosModules.default
+                      inputs.spicetify-nix.nixosModules.default
                       inputs.stylix.nixosModules.stylix
 
                       ## Imports files from hosts/
