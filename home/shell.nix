@@ -9,12 +9,10 @@
     shell.enable = lib.mkOption { default = true; };
   };
   config = lib.mkIf config.shell.enable {
-    dconf.settings = {
-      "org/virt-manager/virt-manager/connections" = {
-        autoconnect = [ "qemu:///system" ];
-        uris = [ "qemu:///system" ];
-      };
-    };
+    home.packages = with pkgs; [
+      zoxide
+    ];
+
     programs = {
       eza = {
         enable = true;
@@ -22,12 +20,12 @@
         enableFishIntegration = true;
       };
       thefuck.enable = true;
+
       fish = {
         enable = true;
         interactiveShellInit = ''
           direnv hook fish | source
-
-                  fastfetch
+          fastfetch
         '';
         plugins = with pkgs.fishPlugins; [
           {
@@ -65,60 +63,77 @@
           nrn = "nix run nixpkgs#$argv";
         };
       };
+      starship = {
+        enable = true;
+        enableFishIntegration = true;
+        enableTransience = true;
+        ## Stolen tokyo night theme from starship.rs
+        settings = {
+          nodejs = {
+            format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
+            symbol = "";
+            style = "bg:#212736";
+          };
+          rust = {
+            symbol = "";
+            style = "bg:#212736";
+            format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
+          };
+          php = {
+            symbol = "";
+            style = "bg:#212736";
+            format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
+          };
+          time = {
+            disabled = false;
+            time_format = "%R";
+            style = "bg:#1d2230";
+            format = "[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)";
+          };
+          format = "[░▒▓](#a3aed2)[ 󱄅 ](bg:#a3aed2 fg:#090c0c)[](bg:#769ff0 fg:#a3aed2)$directory[](fg:#769ff0 bg:#394260)$git_branch$git_status[](fg:#394260 bg:#212736)$nodejs$rust$golang$php[](fg:#212736 bg:#1d2230)$time[ ](fg:#1d2230)
+$character";
+          directory = {
+            style = "fg:#e3e5e5 bg:#769ff0";
+            format = "[ $path ]($style)";
+            truncation_length = 3;
+            truncation_symbol = "…/";
+            substitutions = {
+              Music = " ";
+              Pictures = " ";
+              Documents = "󰈙 ";
+              Downloads = " ";
+            };
+          };
+          git_branch = {
+            format = "[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)";
+            symbol = "";
+            style = "bg:#394260";
+          };
+          git_status = {
+            style = "bg:#394260";
+            format = "[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)";
+          };
+          golang = {
+            format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
+            symbol = "";
+            style = "bg:#212736";
+          };
+        };
+      };
+      zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+        options = [
+          "--cmd cd"
+        ];
+      };
     };
-    xdg.configFile."/fish/functions/fish_promp.fish".text = ''
-      function fish_prompt --description 'Write out the prompt'
-          set -l laststatus $status
 
-          set -l git_info
-          if set -l git_branch (command git symbolic-ref HEAD 2>/dev/null | string replace refs/heads/ \'\')
-              set git_branch (set_color -o blue)"$git_branch"
-              set -l git_status
-              if not command git diff-index --quiet HEAD --
-                  if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
-                      echo $count | read -l ahead behind
-                      if test "$ahead" -gt 0
-                          set git_status "$git_status"(set_color red)⬆
-                      end
-                      if test "$behind" -gt 0
-                          set git_status "$git_status"(set_color red)⬇
-                      end
-                  end
-                  for i in (git status --porcelain | string sub -l 2 | sort | uniq)
-                      switch $i
-                          case "."
-                              set git_status "$git_status"(set_color green)✚
-                          case " D"
-                              set git_status "$git_status"(set_color red)✖
-                          case "*M*"
-                              set git_status "$git_status"(set_color green)✱
-                          case "*R*"
-                              set git_status "$git_status"(set_color purple)➜
-                          case "*U*"
-                              set git_status "$git_status"(set_color brown)═
-                          case "??"
-                              set git_status "$git_status"(set_color red)≠
-                      end
-                  end
-              else
-                  set git_status (set_color green):
-              end
-              set git_info "(git$git_status$git_branch"(set_color white)")"
-          end
-
-          # Disable PWD shortening by default.
-          set -q fish_prompt_pwd_dir_length
-          or set -lx fish_prompt_pwd_dir_length 0
-
-          set_color -b black
-          printf '%s%s%s%s%s%s%s%s%s%s%s%s%s' (set_color -o white) '❰' (set_color green) $USER (set_color white) '❙' (set_color yellow) (prompt_pwd) (set_color white) $git_info (set_color white) '❱' (set_color white)
-          if test $laststatus -eq 0
-              printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
-          else
-              printf "%s✘%s≻%s " (set_color -o red) (set_color white) (set_color normal)
-          end
-      end
-
-    '';
+    dconf.settings = {
+      "org/virt-manager/virt-manager/connections" = {
+        autoconnect = [ "qemu:///system" ];
+        uris = [ "qemu:///system" ];
+      };
+    };
   };
 }

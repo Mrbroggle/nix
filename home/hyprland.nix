@@ -42,12 +42,11 @@
         settings = {
           exec-once = [
             "systemctl --user start hyprpolkitagent"
-            "hypilde"
             "hyprpaper"
             "udiskie"
-            "nm-applet &"
+            "nm-applet"
             "clipse -listen"
-            # "hyprpanel"
+            "${pkgs.tailscale-systray}/bin/tailscale-systray"
           ];
           xwayland = {
             force_zero_scaling = true;

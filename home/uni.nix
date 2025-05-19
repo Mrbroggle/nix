@@ -4,6 +4,19 @@
   config,
   ...
 }:
+let
+  packages = with pkgs.rPackages; [
+    rmarkdown
+    knitr
+    Lock5Data
+    magrittr
+    stringi
+    stringr
+    shiny
+    png
+    reticulate
+  ];
+in
 {
 
   options = {
@@ -15,31 +28,11 @@
       zoom-us
       texliveFull
       pandoc
-      (pkgs.rstudioWrapper.override {
-        packages = with pkgs.rPackages; [
-          rmarkdown
-          knitr
-          Lock5Data
-          magrittr
-          stringi
-          stringr
-          shiny
-          png
-          reticulate
-        ];
+      (rstudioWrapper.override {
+        inherit packages;
       })
-      (pkgs.rWrapper.override {
-        packages = with pkgs.rPackages; [
-          rmarkdown
-          knitr
-          Lock5Data
-          magrittr
-          stringi
-          stringr
-          shiny
-          png
-          reticulate
-        ];
+      (rWrapper.override {
+        inherit packages;
       })
     ];
   };

@@ -19,6 +19,7 @@
       lazygit
       fd
       glsl_analyzer
+      gcc
     ];
     programs.nvf = {
       enable = true;
@@ -107,6 +108,12 @@
               enable = true;
               treesitter.enable = true;
               format.type = "nixfmt";
+              extraDiagnostics = {
+                enable = true;
+                types = [
+                  "statix"
+                ];
+              };
             };
             markdown.enable = true;
 

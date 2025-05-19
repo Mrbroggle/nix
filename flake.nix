@@ -113,7 +113,7 @@
                       { _module.args = { inherit inputs; }; }
                       ./configuration.nix
 
-                      ## Sets hhostname
+                      ## Sets hostname
                       { networking.hostName = hostName; }
                       ## Imports modules used in everything
                       home-manager.nixosModules.home-manager
@@ -128,7 +128,10 @@
                       ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
                       {
                         home-manager = {
-                          extraSpecialArgs = { inherit inputs; };
+                          extraSpecialArgs = {
+                            inherit inputs;
+                            inherit pkgs;
+                          };
                           useGlobalPkgs = true;
                           useUserPackages = true;
                           users.gradyb = ./host/${hostName}/home.nix;
