@@ -36,6 +36,10 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -44,7 +48,6 @@
       home-manager,
       nixos-hardware,
       nixos-wsl,
-      hyprpanel,
       ...
     }@inputs:
     let
@@ -128,6 +131,7 @@
                       ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
                       {
                         home-manager = {
+
                           extraSpecialArgs = {
                             inherit inputs;
                             inherit pkgs;
@@ -136,6 +140,9 @@
                           useUserPackages = true;
                           users.gradyb = ./host/${hostName}/home.nix;
                           backupFileExtension = "backup";
+                          sharedModules = [
+                            inputs.nixcord.homeModules.nixcord
+                          ];
                         };
                       }
                     ]

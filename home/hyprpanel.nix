@@ -7,7 +7,7 @@
 {
   imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
   options = {
-    hyprpanel.enable = lib.mkOption { default = true; };
+    hyprpanel.enable = lib.mkOption { default = false; };
   };
   config = lib.mkIf config.hyprpanel.enable {
 

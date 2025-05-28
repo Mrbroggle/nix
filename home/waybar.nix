@@ -5,7 +5,7 @@
 }:
 {
   options = {
-    waybar.enable = lib.mkOption { default = true; };
+    waybar.enable = lib.mkOption { default = false; };
   };
   config = lib.mkIf config.waybar.enable {
     programs.waybar = {

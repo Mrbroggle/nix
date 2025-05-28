@@ -6,7 +6,7 @@
 }:
 {
   options = {
-    protondrive.enable = lib.mkOption { default = true; };
+    protondrive.enable = lib.mkOption { default = false; };
   };
   config = lib.mkIf config.protondrive.enable {
     systemd.user.services.pdrive-mounts = {

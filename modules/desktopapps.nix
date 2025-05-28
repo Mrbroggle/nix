@@ -15,7 +15,6 @@
       celluloid
       neovide
       gnome-network-displays
-      discord
       gparted
       kdePackages.dolphin
       obsidian

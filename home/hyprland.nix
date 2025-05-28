@@ -6,9 +6,7 @@
 }:
 {
   options = {
-    hyprland.enable = lib.mkOption { default = true; };
-    hyprlandLaptop.enable = lib.mkOption { default = false; };
-    hyprlandPC.enable = lib.mkOption { default = false; };
+    hyprland.enable = lib.mkOption { default = false; };
   };
 
   config = lib.mkIf config.hyprland.enable {
@@ -36,7 +34,6 @@
       {
         enable = true;
         plugins = [
-          pkgs.hyprlandPlugins.hyprscroller
           pkgs.hyprlandPlugins.hyprspace
         ];
         settings = {
@@ -143,10 +140,6 @@
           };
 
           plugin = {
-            scroller = {
-              column_widths = "one";
-              window_heights = "one";
-            };
           };
 
           gestures = {
@@ -206,7 +199,7 @@
             "$mainMod, mouse_down, workspace, e+1"
             "$mainMod, mouse_up, workspace, e-1"
             "$mainMod, F, fullscreen,"
-            "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures"
+            "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures/Screenshots"
             "$mainMod, V, exec, alacritty --class clipse -e clipse"
             "CTRL_SHIFT, escape, exec, alacritty -e btop"
             ", xf86poweroff , exec, wlogout"

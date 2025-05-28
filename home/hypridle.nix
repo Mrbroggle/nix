@@ -1,9 +1,6 @@
 { lib, config, ... }:
 {
-  options = {
-    hypridle.enable = lib.mkOption { default = true; };
-  };
-  config = lib.mkIf config.hypridle.enable {
+  config = lib.mkIf config.hyprland.enable {
     wayland.windowManager.hyprland.settings.exec-once = [ "swaync" ];
     services.hypridle = {
       enable = false;

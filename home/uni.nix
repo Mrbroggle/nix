@@ -16,11 +16,16 @@ let
     png
     reticulate
   ];
+  rStudioDesktopItem = pkgs.makeDesktopItem {
+    name = "RStudio";
+    desktopName = "RStudio";
+    exec = "${pkgs.rstudioWrapper}/bin/rstudio";
+  };
 in
 {
 
   options = {
-    uni.enable = lib.mkOption { default = true; };
+    uni.enable = lib.mkOption { default = false; };
   };
   config = lib.mkIf config.uni.enable {
     home.packages = with pkgs; [
@@ -28,6 +33,7 @@ in
       zoom-us
       texliveFull
       pandoc
+      # rStudioDesktopItem
       (rstudioWrapper.override {
         inherit packages;
       })

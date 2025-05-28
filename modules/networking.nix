@@ -19,6 +19,9 @@
       #   enable = true;
       # };
     };
+    environment.systemPackages = with pkgs; [
+      protonvpn-gui
+    ];
     # networking.networkmanager.wifi.backend = "iwd";
 
     # dnsmasq.enable = true;

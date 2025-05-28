@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
   options = {
-    swaync.enable = lib.mkOption { default = true; };
+    swaync.enable = lib.mkOption { default = false; };
   };
   config = lib.mkIf config.swaync.enable {
     wayland.windowManager.hyprland.settings = {
@@ -21,10 +21,10 @@
         layer-shell = true;
         cssPriority = "application";
         control-center-width = 350;
-        control-center-margin-top = 8;
-        control-center-margin-bottom = 8;
-        control-center-margin-right = 8;
-        control-center-margin-left = 8;
+        control-center-margin-top = 6;
+        control-center-margin-bottom = 6;
+        control-center-margin-right = 6;
+        control-center-margin-left = 6;
         notification-2fa-action = true;
         notification-inline-replies = true;
         notification-window-width = 350;

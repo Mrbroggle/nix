@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
   options = {
-    wlogout.enable = lib.mkOption { default = true; };
+    wlogout.enable = lib.mkOption { default = false; };
   };
   config = lib.mkIf config.wlogout.enable {
     programs.wlogout = {

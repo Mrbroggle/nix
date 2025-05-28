@@ -6,7 +6,7 @@
 }:
 {
   options = {
-    shell.enable = lib.mkOption { default = true; };
+    shell.enable = lib.mkOption { default = false; };
   };
   config = lib.mkIf config.shell.enable {
     home.packages = with pkgs; [
@@ -49,18 +49,17 @@
           enc = "doas nvim /home/gradyb/etc/nixos/ ";
           cnc = "cd /home/gradyb/etc/nixos/";
           nrs = "nh os switch -- $argv";
+          nru = "nh os switch --update ";
           ga = "git add . && git status";
           gc = "git commit";
           gp = "git push";
           gf = "git pull";
           gd = "git clone $argv";
           gs = "git status";
-          ani = "ani-cli $argv";
-          anid = "ani-cli -d $argv";
           ls = "eza $argv";
-          rs = "rstudio & disown & exit";
           nsp = "nix-shell -p $argv";
           nrn = "nix run nixpkgs#$argv";
+          nr = "nix run $argv";
         };
       };
       starship = {
