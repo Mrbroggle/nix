@@ -11,6 +11,7 @@
   config = lib.mkIf config.cli.enable {
     environment.systemPackages = with pkgs; [
       inputs.alejandra.defaultPackage.x86_64-linux
+      pre-commit
       direnv
       nix-output-monitor
       wget

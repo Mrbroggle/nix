@@ -44,7 +44,6 @@
       url = "github:kamadorueda/alejandra/4.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
   };
 
   outputs = {
@@ -97,19 +96,7 @@
     ];
 
     nas-module = [];
-
-    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
-
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in {
-    checks = forAllSystems (system: {
-      pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          nixpkgs-fmt.enable = true;
-        };
-      };
-    });
     nixosConfigurations = builtins.listToAttrs (
       map (hostName: {
         name = hostName;
