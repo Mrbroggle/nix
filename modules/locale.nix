@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    locale.enable = lib.mkOption { default = true; };
+    locale.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.locale.enable {
     # Set your time zone.

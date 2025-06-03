@@ -4,13 +4,13 @@
   config,
   inputs,
   ...
-}:
-{
+}: {
   options = {
-    cli.enable = lib.mkOption { default = true; };
+    cli.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.cli.enable {
     environment.systemPackages = with pkgs; [
+      inputs.alejandra.defaultPackage.x86_64-linux
       direnv
       nix-output-monitor
       wget
@@ -28,7 +28,7 @@
       unzip
       gzip
       inputs.jerry.packages."${pkgs.system}".jerry
-      (inputs.lobster.packages."${pkgs.system}".lobster.override { inherit (pkgs) mpv; })
+      (inputs.lobster.packages."${pkgs.system}".lobster.override {inherit (pkgs) mpv;})
       ueberzugpp
       jq
       chafa

@@ -1,5 +1,8 @@
-{ lib, config, ... }:
-let
+{
+  lib,
+  config,
+  ...
+}: let
   hyprDE = {
     hyprland.enable = true;
     swaync.enable = true;
@@ -15,11 +18,10 @@ let
   merged = lib.mkMerge [
     (lib.mkIf (config.hyprlandLaptop.enable || config.hyprlandPC.enable) hyprDE)
   ];
-in
-{
+in {
   options = {
-    hyprlandLaptop.enable = lib.mkOption { default = false; };
-    hyprlandPC.enable = lib.mkOption { default = false; };
+    hyprlandLaptop.enable = lib.mkOption {default = false;};
+    hyprlandPC.enable = lib.mkOption {default = false;};
   };
   config = lib.mkMerge [
     merged

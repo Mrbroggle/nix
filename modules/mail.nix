@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    mail.enable = lib.mkOption { default = true; };
+    mail.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.mail.enable {
     services.protonmail-bridge = {

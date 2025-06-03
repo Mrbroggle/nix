@@ -1,6 +1,5 @@
-{ inputs, ... }:
-{
-  imports = [ (inputs.import-tree ../modules) ];
+{inputs, ...}: {
+  imports = [(inputs.import-tree ../modules)];
   kde6.enable = false;
   multirotor.enable = false;
 }

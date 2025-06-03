@@ -3,22 +3,21 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    hyprland.enable = lib.mkOption { default = true; };
+    hyprland.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.hyprland.enable {
     programs = {
       /*
-        regreet = {
-          enable = true;
-          settings = lib.mkForce {
-            env = {
-              STATE_DIR = "/home/gradyb/.temp/";
-            };
+      regreet = {
+        enable = true;
+        settings = lib.mkForce {
+          env = {
+            STATE_DIR = "/home/gradyb/.temp/";
           };
         };
+      };
       */
     };
 
@@ -52,7 +51,7 @@
             };
           };
         };
-        sessionPackages = [ pkgs.hyprland ];
+        sessionPackages = [pkgs.hyprland];
       };
       logind.extraConfig = ''
         HandlePowerKey=ignore
@@ -71,7 +70,8 @@
       };
     };
     environment.systemPackages = with pkgs; [
-      alacritty
+      # alacritty
+      ghostty
       networkmanager
       wofi
       udiskie

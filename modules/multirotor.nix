@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    multirotor.enable = lib.mkOption { default = true; };
+    multirotor.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.multirotor.enable {
     environment.systemPackages = with pkgs; [

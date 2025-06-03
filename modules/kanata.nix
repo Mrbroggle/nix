@@ -1,10 +1,13 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   options = {
-    kanata.enable = lib.mkOption { default = true; };
+    kanata.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.kanata.enable {
-    boot.kernelModules = [ "uinput" ];
+    boot.kernelModules = ["uinput"];
 
     hardware.uinput.enable = true;
 
@@ -12,7 +15,7 @@
       KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
     '';
 
-    users.groups.uinput = { };
+    users.groups.uinput = {};
 
     systemd.services.kanata-internalKeyboard.serviceConfig = {
       SupplementaryGroups = [

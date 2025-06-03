@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   packages = with pkgs.rPackages; [
     rmarkdown
     knitr
@@ -21,11 +20,9 @@ let
     desktopName = "RStudio";
     exec = "${pkgs.rstudioWrapper}/bin/rstudio";
   };
-in
-{
-
+in {
   options = {
-    uni.enable = lib.mkOption { default = false; };
+    uni.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.uni.enable {
     home.packages = with pkgs; [

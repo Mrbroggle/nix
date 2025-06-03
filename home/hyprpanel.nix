@@ -3,19 +3,17 @@
   lib,
   config,
   ...
-}:
-{
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+}: {
+  imports = [inputs.hyprpanel.homeManagerModules.hyprpanel];
   options = {
-    hyprpanel.enable = lib.mkOption { default = false; };
+    hyprpanel.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.hyprpanel.enable {
-
     programs.hyprpanel = {
       enable = true;
     };
     wayland.windowManager.hyprland.settings = {
-      exec-once = [ "hyprpanel" ];
+      exec-once = ["hyprpanel"];
       bind = [
         "$mainMod, N, exec, hyprpanel -t notificationsmenu"
       ];

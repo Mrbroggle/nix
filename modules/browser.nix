@@ -4,10 +4,9 @@
   config,
   inputs,
   ...
-}:
-{
+}: {
   options = {
-    browser.enable = lib.mkOption { default = true; };
+    browser.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.browser.enable {
     environment.systemPackages = with pkgs; [
@@ -16,7 +15,6 @@
         enableWidevine = false;
       })
       inputs.zen-browser.packages."${system}".default
-
     ];
   };
 }

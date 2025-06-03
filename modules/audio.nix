@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    audio.enable = lib.mkOption { default = true; };
+    audio.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.audio.enable {
     security.rtkit.enable = true;

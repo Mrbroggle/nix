@@ -2,10 +2,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    waybar.enable = lib.mkOption { default = false; };
+    waybar.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.waybar.enable {
     programs.waybar = {
@@ -75,7 +74,7 @@
             tooltip-format-disconnected = "Error";
             tooltip-format-wifi = "{essid} ({signalStrength}%) ";
             tooltip-format-ethernet = "{ifname} 🖧 ";
-            on-click = "alacritty nmtui";
+            on-click = "ghostty nmtui";
           };
           bluetooth = {
             format-on = "󰂯";
@@ -295,12 +294,11 @@
           transition: all 0.3s ease;
         }
       '';
-
     };
     # xdg.configFile."waybar" = {
     #   source = "${dots}/.config/waybar";
     #   recursive = true;
     # };
-    wayland.windowManager.hyprland.settings.exec-once = [ "waybar" ];
+    wayland.windowManager.hyprland.settings.exec-once = ["waybar"];
   };
 }

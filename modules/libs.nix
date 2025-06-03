@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    libs.enable = lib.mkOption { default = true; };
+    libs.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.libs.enable {
     environment.systemPackages = with pkgs; [

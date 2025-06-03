@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    office.enable = lib.mkOption { default = true; };
+    office.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.office.enable {
     environment.systemPackages = with pkgs; [

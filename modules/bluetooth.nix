@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    bluetooth.enable = lib.mkOption { default = true; };
+    bluetooth.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.bluetooth.enable {
     hardware.bluetooth.enable = true;

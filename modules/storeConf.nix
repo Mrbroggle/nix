@@ -1,13 +1,15 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   options = {
-    storeConf.enable = lib.mkOption { default = true; };
+    storeConf.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.storeConf.enable {
-
     nix = {
       optimise.automatic = true;
-      optimise.dates = [ "07:45" ];
+      optimise.dates = ["07:45"];
       settings.warn-dirty = false;
     };
     programs.nh = {

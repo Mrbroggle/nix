@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options = {
-
-    resolve.enable = lib.mkOption { default = true; };
+    resolve.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.rclone.enable {
     environment.systemPackages = with pkgs; [

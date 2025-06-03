@@ -1,11 +1,14 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   options = {
-    swaync.enable = lib.mkOption { default = false; };
+    swaync.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.swaync.enable {
     wayland.windowManager.hyprland.settings = {
-      exec-once = [ "swaync" ];
+      exec-once = ["swaync"];
       bind = [
         "$mainMod, N, exec, swaync-client -t"
       ];
@@ -85,7 +88,7 @@
               }
               {
                 label = "";
-                command = "alacritty nmtui";
+                command = "ghostty nmtui";
               }
               {
                 label = "";
@@ -102,7 +105,7 @@
               }
               {
                 label = "";
-                command = "alacritty bash -i -c 'btop'";
+                command = "ghostty bash -i -c 'btop'";
               }
               {
                 label = "";

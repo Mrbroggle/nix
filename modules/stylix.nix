@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    stylixModule.enable = lib.mkOption { default = true; };
+    stylixModule.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.stylixModule.enable {
     stylix = {

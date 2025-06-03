@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    styling.enable = lib.mkOption { default = false; };
+    styling.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.styling.enable {
     stylix = {
@@ -26,6 +25,7 @@
         swaync.enable = true;
         rstudio.enable = true;
         nixcord.enable = true;
+        ghostty.enable = true;
       };
     };
 

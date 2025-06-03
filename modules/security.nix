@@ -1,7 +1,10 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   options = {
-    security.enable = lib.mkOption { default = true; };
+    security.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.security.enable {
     security = {
@@ -9,7 +12,7 @@
         enable = true;
         extraRules = [
           {
-            users = [ "gradyb" ];
+            users = ["gradyb"];
 
             keepEnv = true;
             noPass = true;
@@ -18,7 +21,7 @@
       };
       sudo.extraRules = [
         {
-          users = [ "gradyb" ];
+          users = ["gradyb"];
           commands = [
             {
               command = "ALL";
@@ -43,13 +46,12 @@
     ];
 
     systemd.services.fprintd = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "simple";
     };
     services = {
       openssh.enable = true;
       passSecretService.enable = true;
-
     };
   };
 }

@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    laptopScreen.enable = lib.mkOption { default = true; };
+    laptopScreen.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.laptopScreen.enable {
     boot.blacklistedKernelModules = [

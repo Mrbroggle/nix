@@ -40,122 +40,136 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    alejandra = {
+      url = "github:kamadorueda/alejandra/4.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
   };
 
-  outputs =
-    {
-      nixpkgs,
-      home-manager,
-      nixos-hardware,
-      nixos-wsl,
-      ...
-    }@inputs:
-    let
-      system = "x86_64-linux";
-      ## Modifies nixpkgs globally for overlays and unfree
-      pkgs = import nixpkgs {
-        inherit pkgs;
-        inherit system;
-        overlays = [
-          inputs.hyprpanel.overlay
-        ];
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = _: true;
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nixos-hardware,
+    nixos-wsl,
+    alejandra,
+    ...
+  } @ inputs: let
+    system = "x86_64-linux";
+    ## Modifies nixpkgs globally for overlays and unfree
+    pkgs = import nixpkgs {
+      inherit pkgs;
+      inherit system;
+      overlays = [
+        inputs.hyprpanel.overlay
+      ];
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
+    };
 
+    ## Defines user and hostnames
+    defaultUser = "gradyb";
+    systems = [
+      "laptop-nixos"
+      "pc-nixos"
+      "wsl-nixos"
+      "nas-nixos"
+    ];
+
+    ## Modules for specific hosts
+    laptop-module = [
+      nixos-hardware.nixosModules.framework-13-7040-amd
+    ];
+
+    pc-module = [
+    ];
+
+    wsl-module = [
+      nixos-wsl.nixosModules.default
+
+      {
+        system.stateVersion = "25.05";
+        wsl.enable = true;
+      }
+    ];
+
+    nas-module = [];
+
+    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+  in {
+    checks = forAllSystems (system: {
+      pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          nixpkgs-fmt.enable = true;
         };
       };
-
-      ## Defines user and hostnames
-      defaultUser = "gradyb";
-      systems = [
-        "laptop-nixos"
-        "pc-nixos"
-        "wsl-nixos"
-        "nas-nixos"
-      ];
-
-      ## Modules for specific hosts
-      laptop-module = [
-        nixos-hardware.nixosModules.framework-13-7040-amd
-      ];
-
-      pc-module = [
-      ];
-
-      wsl-module = [
-        nixos-wsl.nixosModules.default
-
-        {
-          system.stateVersion = "25.05";
-          wsl.enable = true;
-        }
-      ];
-
-      nas-module = [ ];
-    in
-    {
-      nixosConfigurations = builtins.listToAttrs (
-        map (hostName: {
-          name = hostName;
-          value = nixpkgs.lib.nixosSystem {
-            inherit system;
-            inherit pkgs;
-            specialArgs = {
-              inherit inputs system;
-              inherit defaultUser hostName;
-            };
-            ##Imports modules
-            modules = [
-              (
-                ## Function that includes lib for optionals
-                { lib, ... }:
-                {
-                  imports =
-                    [
-                      { _module.args = { inherit inputs; }; }
-                      ./configuration.nix
-
-                      ## Sets hostname
-                      { networking.hostName = hostName; }
-                      ## Imports modules used in everything
-                      home-manager.nixosModules.home-manager
-                      inputs.nvf.nixosModules.default
-                      inputs.spicetify-nix.nixosModules.default
-                      inputs.stylix.nixosModules.stylix
-
-                      ## Imports files from hosts/
-                      ./host/${hostName}.nix
-                      ./host/${hostName}/hardware-configuration.nix
-                      ## Imports home-manager from hosts/
-                      ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
-                      {
-                        home-manager = {
-
-                          extraSpecialArgs = {
-                            inherit inputs;
-                            inherit pkgs;
-                          };
-                          useGlobalPkgs = true;
-                          useUserPackages = true;
-                          users.gradyb = ./host/${hostName}/home.nix;
-                          backupFileExtension = "backup";
-                          sharedModules = [
-                            inputs.nixcord.homeModules.nixcord
-                          ];
-                        };
-                      }
-                    ]
-                    ##optionally adds modules based of hostname
-                    ++ (lib.optionals (hostName == "laptop-nixos") laptop-module)
-                    ++ (lib.optionals (hostName == "pc-nixos") pc-module)
-                    ++ (lib.optionals (hostName == "wsl-nixos") wsl-module)
-                    ++ (lib.optionals (hostName == "nas-nixos") nas-module);
-                }
-              )
-            ];
+    });
+    nixosConfigurations = builtins.listToAttrs (
+      map (hostName: {
+        name = hostName;
+        value = nixpkgs.lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+          specialArgs = {
+            inherit inputs system;
+            inherit defaultUser hostName;
           };
-        }) systems
-      );
-    };
+          ##Imports modules
+          modules = [
+            (
+              ## Function that includes lib for optionals
+              {lib, ...}: {
+                imports =
+                  [
+                    {_module.args = {inherit inputs;};}
+                    ./configuration.nix
+
+                    ## Sets hostname
+                    {networking.hostName = hostName;}
+                    ## Imports modules used in everything
+                    home-manager.nixosModules.home-manager
+                    inputs.nvf.nixosModules.default
+                    inputs.spicetify-nix.nixosModules.default
+                    inputs.stylix.nixosModules.stylix
+
+                    ## Imports files from hosts/
+                    ./host/${hostName}.nix
+                    ./host/${hostName}/hardware-configuration.nix
+                    ## Imports home-manager from hosts/
+                    ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
+                    {
+                      home-manager = {
+                        extraSpecialArgs = {
+                          inherit inputs;
+                          inherit pkgs;
+                        };
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.gradyb = ./host/${hostName}/home.nix;
+                        backupFileExtension = "backup";
+                        sharedModules = [
+                          inputs.nixcord.homeModules.nixcord
+                        ];
+                      };
+                    }
+                  ]
+                  ##optionally adds modules based of hostname
+                  ++ (lib.optionals (hostName == "laptop-nixos") laptop-module)
+                  ++ (lib.optionals (hostName == "pc-nixos") pc-module)
+                  ++ (lib.optionals (hostName == "wsl-nixos") wsl-module)
+                  ++ (lib.optionals (hostName == "nas-nixos") nas-module);
+              }
+            )
+          ];
+        };
+      })
+      systems
+    );
+  };
 }

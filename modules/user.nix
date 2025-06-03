@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    userProfile.enable = lib.mkOption { default = true; };
+    userProfile.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.userProfile.enable {
     programs.fish.enable = true;

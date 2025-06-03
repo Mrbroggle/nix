@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    vulkan.enable = lib.mkOption { default = true; };
+    vulkan.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.vulkan.enable {
     environment.systemPackages = with pkgs; [

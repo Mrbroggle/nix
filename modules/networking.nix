@@ -3,14 +3,12 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   options = {
-    networking.enable = lib.mkOption { default = true; };
-    tailscale.enable = lib.mkOption { default = true; };
+    networking.enable = lib.mkOption {default = true;};
+    tailscale.enable = lib.mkOption {default = true;};
   };
   config = {
-
     # networking.wireless.iwd.enable = true;
     networking = lib.mkIf config.networking.enable {
       networkmanager.enable = true;

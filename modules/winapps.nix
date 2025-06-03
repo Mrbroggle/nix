@@ -4,10 +4,9 @@
   inputs,
   pkgs,
   ...
-}:
-{
+}: {
   options = {
-    winapps.enable = lib.mkOption { default = true; };
+    winapps.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.winapps.enable {
     environment.systemPackages = [
@@ -15,7 +14,7 @@
       inputs.winapps.packages."${pkgs.system}".winapps-launcher
     ];
     programs.virt-manager.enable = true;
-    users.groups.libvirtd.members = [ "gradyb" ];
+    users.groups.libvirtd.members = ["gradyb"];
     virtualisation = {
       libvirtd = {
         enable = true;

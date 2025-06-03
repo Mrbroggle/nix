@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    plymouth.enable = lib.mkOption { default = true; };
+    plymouth.enable = lib.mkOption {default = true;};
   };
   config = lib.mkIf config.plymouth.enable {
     boot = {
@@ -15,7 +14,7 @@
         theme = "lone";
         themePackages = with pkgs; [
           (adi1090x-plymouth-themes.override {
-            selected_themes = [ "lone" ];
+            selected_themes = ["lone"];
           })
         ];
       };

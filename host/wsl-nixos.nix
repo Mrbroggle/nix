@@ -1,7 +1,6 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   wsl.defaultUser = "gradyb";
-  imports = [ (inputs.import-tree ../modules) ];
+  imports = [(inputs.import-tree ../modules)];
 
   battery.enable = false;
   hyprland.enable = false;

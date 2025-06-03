@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   options = {
-    hyprland.enable = lib.mkOption { default = false; };
+    hyprland.enable = lib.mkOption {default = false;};
   };
 
   config = lib.mkIf config.hyprland.enable {
@@ -20,11 +19,9 @@
     };
     home = lib.mkMerge [
       {
-
         sessionVariables.NIXOS_OZONE_WL = "1";
       }
       {
-
         sessionVariables = lib.mkIf config.hyprlandLaptop.enable {
           GDK_SCALE = 2;
         };
@@ -49,7 +46,7 @@
             force_zero_scaling = true;
           };
 
-          "$terminal" = "alacritty";
+          "$terminal" = "ghostty";
           "$fileManager" = "dolphin";
           "$menu" = "wofi --show drun";
           general = {
@@ -166,6 +163,10 @@
             "$mainMod, L, movefocus, r"
             "$mainMod, K, movefocus, u"
             "$mainMod, J, movefocus, d"
+            "$mainMod ALT, H, movewindow, l"
+            "$mainMod ALT, L, movewindow, r"
+            "$mainMod ALT, K, movewindow, u"
+            "$mainMod ALT, J, movewindow, d"
             "$mainMod SHIFT, right, resizeactive, 10 0"
             "$mainMod SHIFT, left, resizeactive, -10 0"
             "$mainMod SHIFT, up, resizeactive, 0 -10"
@@ -200,8 +201,8 @@
             "$mainMod, mouse_up, workspace, e-1"
             "$mainMod, F, fullscreen,"
             "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures/Screenshots"
-            "$mainMod, V, exec, alacritty --class clipse -e clipse"
-            "CTRL_SHIFT, escape, exec, alacritty -e btop"
+            "$mainMod, V, exec, $terminal --class clipse -e clipse"
+            "CTRL_SHIFT, escape, exec, $terminal -e btop"
             ", xf86poweroff , exec, wlogout"
           ];
 
@@ -228,7 +229,7 @@
           windowrulev2 = [
             "suppressevent maximize, class:.*"
             "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-            "size 751 954, class:(Alacritty)"
+            "size 751 954, class:(com.mitchellh.ghostty)"
             "float, class:(clipse)"
             "size 622 652, class:(clipse)"
             "stayfocused, class:(clipse)"
@@ -237,46 +238,44 @@
       }
       {
         settings =
-          if config.hyprlandLaptop.enable then
-            {
-              # backup for is Kanshi dies
-              monitor = [
-                "eDP-1, 2880x1920@120, 0x0, 1.875"
-                ", preferred, auto-left, 1"
-              ];
-              env = [
-                "GDK_SCALE,2"
-                "XCURSOR_SIZE,24"
-              ];
-              /*
-                animations = {
-                  enabled = "false";
-                };
-              */
-              bind = [
-                ", code:232, exec, brightnessctl set -10% > /dev/null"
-                ", code:233, exec, brightnessctl set +10% > /dev/null"
-              ];
-              bindl = [
-                ", switch:on:[switch name], exec, hyprctl keyword monitor \"eDP-1, disable\""
-                ", switch:off:[switch name], exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\""
-              ];
-            }
-          else if config.hyprlandPC.enable then
-            {
-              monitor = [
-                "DP-2, 1920x1080@165,0x0,1"
-                "HDMI-A-2, 1920x1080@100,-1920x-400,1,transform,1"
-              ];
-            }
-          else
-            {
-              monitor = [
-                ", preferred, auto-left, 1"
-              ];
+          if config.hyprlandLaptop.enable
+          then {
+            # backup for is Kanshi dies
+            monitor = [
+              "eDP-1, 2880x1920@120, 0x0, 1.875"
+              ", preferred, auto-left, 1"
+            ];
+            env = [
+              "GDK_SCALE,2"
+              "XCURSOR_SIZE,24"
+            ];
+            /*
+            animations = {
+              enabled = "false";
             };
+            */
+            bind = [
+              ", code:232, exec, brightnessctl set -10% > /dev/null"
+              ", code:233, exec, brightnessctl set +10% > /dev/null"
+            ];
+            bindl = [
+              ", switch:on:[switch name], exec, hyprctl keyword monitor \"eDP-1, disable\""
+              ", switch:off:[switch name], exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\""
+            ];
+          }
+          else if config.hyprlandPC.enable
+          then {
+            monitor = [
+              "DP-2, 1920x1080@165,0x0,1"
+              "HDMI-A-2, 1920x1080@100,-1920x-400,1,transform,1"
+            ];
+          }
+          else {
+            monitor = [
+              ", preferred, auto-left, 1"
+            ];
+          };
       }
-
     ];
 
     services.kanshi = lib.mkIf config.hyprlandLaptop.enable {
@@ -298,7 +297,6 @@
               }
             ];
           };
-
         }
         {
           profile = {
