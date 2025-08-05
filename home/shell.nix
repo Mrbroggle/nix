@@ -19,7 +19,6 @@
           icons = "always";
           enableFishIntegration = true;
         };
-        thefuck.enable = true;
 
         fish = {
           enable = true;
@@ -45,10 +44,13 @@
               inherit (done) src;
             }
           ];
+          functions = {
+            clangComp = "clang++ $argv -g -o $(path basename -E $argv)";
+          };
           shellAliases = {
             enc = "doas nvim /home/gradyb/etc/nixos/ ";
             cnc = "cd /home/gradyb/etc/nixos/";
-            nrs = "alejandra /home/gradyb/etc/nixos/; nh os switch -- $argv";
+            nrs = "alejandra -q /home/gradyb/etc/nixos/; nh os switch $argv";
             nru = "nh os switch --update ";
             ga = "git add . && git status";
             gc = "git commit";

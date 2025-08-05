@@ -4,7 +4,70 @@
   config,
   inputs,
   ...
-}: {
+}: let
+  asmfmt-git = inputs.asmfmt.packages.x86_64-linux.default;
+  mips-asm-lsp = let
+    pname = "mips-asm-lsp";
+    version = "0.10.1";
+  in
+    pkgs.rustPlatform.buildRustPackage {
+      inherit pname version;
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bergercookie";
+        repo = "asm-lsp";
+        rev = "ba39d0155216fc7d6f011522a849126d3f9f461b";
+        hash = "sha256-qO9PF7VKZUe+nd3e6eQhsutvM6CqA7u6qDm0+yleIy4=";
+      };
+
+      nativeBuildInputs = [pkgs.pkg-config];
+
+      buildInputs = lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [pkgs.openssl];
+
+      cargoHash = "sha256-4GbKT8+TMf2o563blj8lnZTD7Lc+z9yW11TfxYzDSg4=";
+
+      # tests expect ~/.cache/asm-lsp to be writable
+      preCheck = ''
+        export HOME=$(mktemp -d)
+      '';
+
+      # Prepend the default config to Cargo.toml
+      postPatch = ''
+            cat <<EOF > Cargo.toml.new
+        [default_config]
+        assembler = "mars"
+        instruction_set = "mips"
+        EOF
+            cat Cargo.toml >> Cargo.toml.new
+            mv Cargo.toml.new Cargo.toml
+      '';
+
+      meta = {
+        description = "Language server for NASM/GAS/GO Assembly";
+        homepage = "https://github.com/bergercookie/asm-lsp";
+        license = lib.licenses.bsd2;
+        maintainers = with lib.maintainers; [
+          NotAShelf
+          CaiqueFigueiredo
+        ];
+        mainProgram = "asm-lsp";
+        platforms = lib.platforms.unix;
+      };
+    };
+
+  asmfmt-config = ''
+    use_tabs: false                 # whether to use tabs to indent
+    shift_only_comments: true       # whether to align lines that are only comments
+    align_operands:                 # how to align normal instructions
+      min_spaces_after_label: 1
+      min_spaces_after_instr: 2
+    align_pseudo_ops:               # how to align pseudo instructions (such as DB)
+      min_spaces_after_label: 1
+      min_spaces_after_instr: 2
+    uppercase_tokens: []            # which tokens are to be made uppercase
+    indent_directives: 2            # how far to indent directives
+  '';
+in {
   options = {
     editor.enable = lib.mkOption {default = true;};
   };
@@ -15,16 +78,24 @@
     };
     environment.systemPackages = with pkgs; [
       fzf
+      asmfmt-git
       ripgrep
       lazygit
       fd
       glsl_analyzer
       gcc
+      clang
+      lldb
     ];
     programs.nvf = {
       enable = true;
       settings = {
         vim = {
+          clipboard = {
+            enable = true;
+            providers.wl-copy.enable = true;
+            registers = "unnamedplus";
+          };
           extraPlugins = with pkgs.vimPlugins; {
             stay-centered = {
               package = stay-centered-nvim;
@@ -38,6 +109,35 @@
           '';
           viAlias = true;
           vimAlias = true;
+
+          formatter = {
+            conform-nvim = {
+              enable = true;
+              setupOpts = {
+                formatter = {
+                  asmfmt = {
+                    command = lib.getExe asmfmt-git + " --config ${asmfmt-config}";
+                  };
+                };
+                formatters_by_ft = {
+                  asm = ["asmfmt"];
+                  s = ["asmfmt"];
+                };
+                format_on_save = {
+                  _type = "lua-inline";
+                  expr = ''
+                    function()
+                      if not vim.g.formatsave or vim.b.disableFormatSave then
+                        return
+                      else
+                        return {["lsp_format"] = "fallback"}
+                      end
+                    end
+                  '';
+                };
+              };
+            };
+          };
 
           debugMode = {
             enable = false;
@@ -106,6 +206,10 @@
             nix = {
               enable = true;
               treesitter.enable = true;
+              lsp = {
+                enable = true;
+                package = inputs.nil.packages.x86_64-linux.default;
+              };
               format = {
                 type = "alejandra";
                 package = inputs.alejandra.defaultPackage.x86_64-linux;
@@ -121,7 +225,10 @@
 
             # Languages that are enabled in the maximal configuration.
             bash.enable = true;
-            clang.enable = true;
+            clang = {
+              enable = true;
+              dap.enable = true;
+            };
             css.enable = true;
             html.enable = true;
             sql.enable = true;
@@ -139,10 +246,13 @@
             };
 
             # Language modules that are not as common.
-            assembly.enable = false;
+            assembly = {
+              enable = true;
+              lsp.package = mips-asm-lsp;
+            };
             astro.enable = false;
             nu.enable = false;
-            csharp.enable = false;
+            csharp.enable = true;
             julia.enable = false;
             vala.enable = false;
             scala.enable = false;
@@ -266,7 +376,12 @@
             icon-picker.enable = true;
             surround.enable = true;
             diffview-nvim.enable = true;
-            yanky-nvim.enable = true;
+            yanky-nvim = {
+              enable = true;
+              setupOpts = {
+                ring.storage = "sqlite";
+              };
+            };
             motion = {
               hop.enable = true;
               leap.enable = true;

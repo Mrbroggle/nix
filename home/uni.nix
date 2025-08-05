@@ -14,12 +14,8 @@
     shiny
     png
     reticulate
+    readr
   ];
-  rStudioDesktopItem = pkgs.makeDesktopItem {
-    name = "RStudio";
-    desktopName = "RStudio";
-    exec = "${pkgs.rstudioWrapper}/bin/rstudio";
-  };
 in {
   options = {
     uni.enable = lib.mkOption {default = false;};
@@ -27,10 +23,10 @@ in {
   config = lib.mkIf config.uni.enable {
     home.packages = with pkgs; [
       zulu23
-      zoom-us
+      # zoom-us
       texliveFull
       pandoc
-      # rStudioDesktopItem
+
       (rstudioWrapper.override {
         inherit packages;
       })

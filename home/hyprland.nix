@@ -31,7 +31,7 @@
       {
         enable = true;
         plugins = [
-          pkgs.hyprlandPlugins.hyprspace
+          # pkgs.hyprlandPlugins.hyprspace
         ];
         settings = {
           exec-once = [
@@ -40,6 +40,9 @@
             "udiskie"
             "nm-applet"
             "clipse -listen"
+            "[workspace 1 silent] ghostty"
+            "[workspace 2 silent] vivaldi"
+            "[workspace 3 silent] discord"
             "${pkgs.tailscale-systray}/bin/tailscale-systray"
           ];
           xwayland = {
@@ -152,6 +155,7 @@
             "$mainMod, E, exec, $fileManager"
             "$mainMod, G, togglefloating,"
             "$mainMod, R, exec, $menu"
+            "ALT, SPACE, exec, $menu"
             "$mainMod, B, exec, vivaldi"
             "$mainMod, P, pseudo, # dwindle"
             "$mainMod, U, togglesplit, # dwindle"
@@ -201,7 +205,7 @@
             "$mainMod, mouse_up, workspace, e-1"
             "$mainMod, F, fullscreen,"
             "$mainMod SHIFT, S, exec, hyprshot -z -m region -o ~/Pictures/Screenshots"
-            "$mainMod, V, exec, $terminal --class clipse -e clipse"
+            "$mainMod, V, exec, $terminal --class=com.savedra1.clipse -e clipse"
             "CTRL_SHIFT, escape, exec, $terminal -e btop"
             ", xf86poweroff , exec, wlogout"
           ];
@@ -230,9 +234,10 @@
             "suppressevent maximize, class:.*"
             "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
             "size 751 954, class:(com.mitchellh.ghostty)"
-            "float, class:(clipse)"
-            "size 622 652, class:(clipse)"
-            "stayfocused, class:(clipse)"
+            "float, class:(com.savedra1.clipse)"
+            "size 622 652, class:(com.savedra1.clipse)"
+            "stayfocused, class:(com.savedra1.clipse)"
+            "workspace 3,initialClass:(discord),title:()"
           ];
         };
       }

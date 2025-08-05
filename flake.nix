@@ -11,10 +11,6 @@
     };
     import-tree.url = "github:vic/import-tree";
 
-    hyprpanel = {
-      url = "github:jas-singhfsu/hyprpanel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     hyprland.url = "github:hyprwm/Hyprland";
     nvf = {
       url = "github:notashelf/nvf";
@@ -44,6 +40,16 @@
       url = "github:kamadorueda/alejandra/4.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nil = {
+      url = "github:oxalica/nil#";
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    asmfmt = {
+      url = "github:Mrbroggle/asmfmt-nix";
+    };
   };
 
   outputs = {
@@ -53,17 +59,21 @@
     nixos-hardware,
     nixos-wsl,
     alejandra,
+    agenix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
     ## Modifies nixpkgs globally for overlays and unfree
+
     pkgs = import nixpkgs {
       inherit pkgs;
       inherit system;
       overlays = [
-        inputs.hyprpanel.overlay
       ];
       config = {
+        permittedInsecurePackages = [
+          "libxml2-2.13.8"
+        ];
         allowUnfree = true;
         allowUnfreePredicate = _: true;
       };
@@ -130,6 +140,9 @@
                     ./host/${hostName}/hardware-configuration.nix
                     ## Imports home-manager from hosts/
                     ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
+                    inputs.agenix.nixosModules.default
+                    {
+                    }
                     {
                       home-manager = {
                         extraSpecialArgs = {

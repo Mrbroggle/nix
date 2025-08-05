@@ -16,7 +16,11 @@
       autoEnable = true;
       targets = {
         fish.enable = true;
-        qt.enable = true;
+        qt = {
+          enable = true;
+          platform = "qtct";
+        };
+        kde.enable = true;
         gtk.enable = true;
         spicetify.enable = true;
         btop.enable = true;
@@ -24,15 +28,22 @@
         waybar.enable = true;
         swaync.enable = true;
         rstudio.enable = true;
-        nixcord.enable = true;
+        nixcord = {
+          enable = true;
+          extraCss = ''
+            :root {
+              --base00: #${config.lib.stylix.colors.base01} !important;
+              --base01: #${config.lib.stylix.colors.base00} !important;
+            }
+          '';
+        };
         ghostty.enable = true;
       };
     };
 
-    xdg.configFile."dolphinrc".text = ''
+    xdg.configFile."kdeglobals".text = ''
       [General]
-      Version=202
-      ViewPropsTimestamp=2025,2,1,12,28,14.355
+      TerminalApplication=ghostty
 
       [KFileDialog Settings]
       Places Icons Auto-resize=false
@@ -45,8 +56,6 @@
       [UiSettings]
       ColorScheme=*
 
-      [ViewPropertiesDialog]
-      1536x1024 screen: Window-Maximized=true
     '';
   };
 }

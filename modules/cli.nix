@@ -11,6 +11,8 @@
   config = lib.mkIf config.cli.enable {
     environment.systemPackages = with pkgs; [
       inputs.alejandra.defaultPackage.x86_64-linux
+      inputs.agenix.packages.x86_64-linux.default
+
       pre-commit
       direnv
       nix-output-monitor
@@ -21,7 +23,6 @@
       gcc
       git
       cargo
-      btop
       meson
       cpio
       cmake

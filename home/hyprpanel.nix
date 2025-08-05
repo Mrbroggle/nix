@@ -1,10 +1,8 @@
 {
-  inputs,
   lib,
   config,
   ...
 }: {
-  imports = [inputs.hyprpanel.homeManagerModules.hyprpanel];
   options = {
     hyprpanel.enable = lib.mkOption {default = false;};
   };

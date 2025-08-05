@@ -18,6 +18,7 @@
         "dialout"
         "libvirt"
         "kvm"
+        "wireshark"
       ];
       shell = pkgs.fish;
     };

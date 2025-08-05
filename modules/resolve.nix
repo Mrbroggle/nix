@@ -7,7 +7,7 @@
   options = {
     resolve.enable = lib.mkOption {default = true;};
   };
-  config = lib.mkIf config.rclone.enable {
+  config = lib.mkIf config.resolve.enable {
     environment.systemPackages = with pkgs; [
       mesa-demos
       vulkan-tools

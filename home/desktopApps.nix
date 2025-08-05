@@ -16,9 +16,9 @@
       ghostty = {
         enable = true;
         enableFishIntegration = true;
-        installVimSyntax = true;
         settings = {
           font-family = "FiraCode Nerd Font Bold";
+          confirm-close-surface = false;
         };
       };
     };
