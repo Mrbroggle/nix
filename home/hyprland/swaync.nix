@@ -77,12 +77,12 @@
           buttons-grid = {
             actions = [
               {
-                label = "󰝟";
+                label = "󰕾";
                 command = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
                 type = "toggle";
               }
               {
-                label = "󰍭";
+                label = "󰍬";
                 command = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
                 type = "toggle";
               }

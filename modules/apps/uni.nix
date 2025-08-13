@@ -32,8 +32,8 @@
               "--env=QT_STYLE_OVERRIDE=Fusion"
             ];
           };
-          mars-mips = {
-            executable = lib.getExe pkgs.mars-mips;
+          Mars = {
+            executable = "${pkgs.mars-mips}/bin/Mars";
 
             desktop = "${pkgs.mars-mips}/share/applications/mars.desktop";
             extraArgs = [

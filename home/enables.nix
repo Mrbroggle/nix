@@ -14,6 +14,7 @@
     hyprpaper.enable = true;
     desktopApps.enable = true;
     protondrive.enable = false;
+    security.enable = true;
   };
   merged = lib.mkMerge [
     (lib.mkIf (config.hyprlandLaptop.enable || config.hyprlandPC.enable) hyprDE)

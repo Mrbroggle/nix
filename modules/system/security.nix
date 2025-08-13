@@ -50,6 +50,7 @@
       serviceConfig.Type = "simple";
     };
     services = {
+      opensnitch.enable = true;
       openssh.enable = true;
       passSecretService.enable = true;
     };

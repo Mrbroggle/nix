@@ -16,9 +16,9 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ##stylix.url = "github:danth/stylix";
-    stylix.url = "github:mrbroggle/stylix/rstudio-hm-module";
-    ##stylix.url = "flake:gradybstylix/rstudio-hm-module";
+    stylix.url = "github:danth/stylix";
+    # stylix.url = "github:mrbroggle/stylix/rstudio-hm-module";
+    #stylix.url = "flake:gradybstylix/rstudio-hm-module";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     jerry.url = "github:justchokingaround/jerry";
@@ -89,23 +89,25 @@
     ];
 
     ## Modules for specific hosts
-    laptop-module = [
-      nixos-hardware.nixosModules.framework-13-7040-amd
-    ];
+    moduleAttrs = {
+      laptop-nixos-module = [
+        nixos-hardware.nixosModules.framework-13-7040-amd
+      ];
 
-    pc-module = [
-    ];
+      pc-nixos-module = [
+      ];
 
-    wsl-module = [
-      nixos-wsl.nixosModules.default
+      wsl-nixos-module = [
+        nixos-wsl.nixosModules.default
 
-      {
-        system.stateVersion = "25.05";
-        wsl.enable = true;
-      }
-    ];
+        {
+          system.stateVersion = "25.05";
+          wsl.enable = true;
+        }
+      ];
 
-    nas-module = [];
+      nas-nixos-module = [];
+    };
   in {
     nixosConfigurations = builtins.listToAttrs (
       map (hostName: {
@@ -122,27 +124,16 @@
             (
               ## Function that includes lib for optionals
               {lib, ...}: {
-                imports =
+                imports = with inputs;
                   [
                     {_module.args = {inherit inputs;};}
-                    ./configuration.nix
 
-                    ## Sets hostname
                     {networking.hostName = hostName;}
-                    ## Imports modules used in everything
-                    home-manager.nixosModules.home-manager
-                    inputs.nvf.nixosModules.default
-                    inputs.spicetify-nix.nixosModules.default
-                    inputs.stylix.nixosModules.stylix
 
-                    ## Imports files from hosts/
+                    ./configuration.nix
                     ./host/${hostName}.nix
                     ./host/${hostName}/hardware-configuration.nix
-                    ## Imports home-manager from hosts/
-                    ## additionally useGlobalPkgs is defined, this is why we modify nixpkgs in the let block
-                    inputs.agenix.nixosModules.default
-                    {
-                    }
+
                     {
                       home-manager = {
                         extraSpecialArgs = {
@@ -151,19 +142,23 @@
                         };
                         useGlobalPkgs = true;
                         useUserPackages = true;
+
                         users.gradyb = ./host/${hostName}/home.nix;
                         backupFileExtension = "backup";
+
                         sharedModules = [
                           inputs.nixcord.homeModules.nixcord
                         ];
                       };
                     }
+
+                    home-manager.nixosModules.home-manager
+                    nvf.nixosModules.default
+                    spicetify-nix.nixosModules.default
+                    stylix.nixosModules.stylix
+                    agenix.nixosModules.default
                   ]
-                  ##optionally adds modules based of hostname
-                  ++ (lib.optionals (hostName == "laptop-nixos") laptop-module)
-                  ++ (lib.optionals (hostName == "pc-nixos") pc-module)
-                  ++ (lib.optionals (hostName == "wsl-nixos") wsl-module)
-                  ++ (lib.optionals (hostName == "nas-nixos") nas-module);
+                  ++ moduleAttrs."${hostName}-module";
               }
             )
           ];

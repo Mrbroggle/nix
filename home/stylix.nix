@@ -27,7 +27,7 @@
         neovim.enable = false;
         waybar.enable = true;
         swaync.enable = true;
-        rstudio.enable = true;
+        # rstudio.enable = true;
         nixcord = {
           enable = true;
           extraCss = ''

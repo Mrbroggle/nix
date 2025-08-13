@@ -56,16 +56,7 @@
     };
 
   asmfmt-config = ''
-    use_tabs: false                 # whether to use tabs to indent
-    shift_only_comments: true       # whether to align lines that are only comments
-    align_operands:                 # how to align normal instructions
-      min_spaces_after_label: 1
-      min_spaces_after_instr: 2
-    align_pseudo_ops:               # how to align pseudo instructions (such as DB)
-      min_spaces_after_label: 1
-      min_spaces_after_instr: 2
-    uppercase_tokens: []            # which tokens are to be made uppercase
-    indent_directives: 2            # how far to indent directives
+    use_tabs: true
   '';
 in {
   options = {
