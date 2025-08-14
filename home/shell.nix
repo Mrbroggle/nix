@@ -3,16 +3,24 @@
   lib,
   config,
   ...
-}: {
+}: let
+  fishPlugs = [
+    "grc"
+    "puffer"
+    "done"
+    "fzf"
+    "pisces"
+    "fishbang"
+  ];
+in {
   options = {
     shell.enable = lib.mkOption {default = false;};
   };
   config =
     lib.mkIf config.shell.enable {
       home.packages = with pkgs; [
-        zoxide
+        pay-respects
       ];
-
       programs = {
         eza = {
           enable = true;
@@ -22,79 +30,98 @@
 
         fish = {
           enable = true;
+          shellInit = ''
+            set fish_greeting "Oh god, no more nix please"
+          '';
           interactiveShellInit = ''
             direnv hook fish | source
-            fastfetch
+            ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
           '';
-          plugins = with pkgs.fishPlugins; [
-            {
-              name = "grc";
-              inherit (grc) src;
-            }
-            {
-              name = "sponge";
-              inherit (sponge) src;
-            }
-            {
-              name = "puffer";
-              inherit (puffer) src;
-            }
-            {
-              name = "done";
-              inherit (done) src;
-            }
-          ];
+          plugins =
+            lib.map (name: {
+              inherit name;
+              inherit (builtins.getAttr name pkgs.fishPlugins) src;
+            })
+            fishPlugs;
           functions = {
             clangComp = "clang++ $argv -g -o $(path basename -E $argv)";
           };
-          shellAliases = {
-            enc = "doas nvim /home/gradyb/etc/nixos/ ";
-            cnc = "cd /home/gradyb/etc/nixos/";
-            nrs = "alejandra -q /home/gradyb/etc/nixos/; nh os switch $argv";
-            nru = "nh os switch --update ";
-            ga = "git add . && git status";
+          binds = {
+          };
+
+          shellAbbrs = {
+            ga = "git add .";
             gc = "git commit";
             gp = "git push";
             gf = "git pull";
-            gd = "git clone $argv";
+            gd = "git clone";
             gs = "git status";
             ls = "eza $argv";
-            nsp = "nix-shell -p $argv";
+            nsp = "nix-shell -p";
             nrn = "nix run nixpkgs#$argv";
-            nr = "nix run $argv";
+            nr = "nix run";
+          };
+
+          shellAliases = let
+            path = "/home/gradyb/etc/nixos/";
+          in {
+            enc = "doas nvim /${path} ";
+            cnc = "cd /${path}";
+            nrs = "alejandra -q /${path}; nh os switch $argv";
+            nru = "nh os switch --update ";
           };
         };
-        starship = {
+        starship = with config.lib.stylix.colors.withHashtag; let
+          color = {
+            one = base03;
+            two = base04;
+            three = base09;
+            four = base01;
+            five = base05;
+            six = base02;
+            seven = base09;
+            eight = base01;
+            # one = "#212736";
+            # two = "#769ff0";
+            # three = "#a0a9cb";
+            # four = "#1d2230";
+            # five = "#a3aed2";
+            # six = "#394260";
+            # seven = "#e3e5e5";
+            # eight = "#090c0c";
+          };
+        in {
           enable = true;
           enableFishIntegration = true;
           enableTransience = true;
           ## Stolen tokyo night theme from starship.rs
           settings = {
             nodejs = {
-              format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
+              format = "[[ $symbol ($version) ](fg:${color.two} bg:${color.one})]($style)";
               symbol = "";
-              style = "bg:#212736";
+              style = "bg:${color.one}";
             };
             rust = {
               symbol = "";
-              style = "bg:#212736";
-              format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
+              style = "bg:${color.one}";
+              format = "[[ $symbol ($version) ](fg:${color.two} bg:${color.one})]($style)";
             };
-            php = {
-              symbol = "";
-              style = "bg:#212736";
-              format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
+            nix_shell = {
+              symbol = "";
+              style = "bg:${color.one}";
+              impure_msg = "[impure shell](bold red)";
+              format = "[[ $symbol ($version) ](fg:${color.two} bg:${color.one})]($style)";
             };
             time = {
               disabled = false;
               time_format = "%R";
-              style = "bg:#1d2230";
-              format = "[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)";
+              style = "bg:${color.four}";
+              format = "[[  $time ](fg:${color.three} bg:${color.four})]($style)";
             };
-            format = "[░▒▓](#a3aed2)[ 󱄅 ](bg:#a3aed2 fg:#090c0c)[](bg:#769ff0 fg:#a3aed2)$directory[](fg:#769ff0 bg:#394260)$git_branch$git_status[](fg:#394260 bg:#212736)$nodejs$rust$golang$php[](fg:#212736 bg:#1d2230)$time[ ](fg:#1d2230)
+            format = "[░▒▓](${color.five})[ 󱄅 ](bg:${color.five} fg:${color.eight})[](bg:${color.two} fg:${color.five})$directory[](fg:${color.two} bg:${color.six})$git_branch$git_status[](fg:${color.six} bg:${color.one})$nodejs$rust$nix_shell[](fg:${color.one} bg:${color.four})$time[ ](fg:${color.four})
 $character";
             directory = {
-              style = "fg:#e3e5e5 bg:#769ff0";
+              style = "fg:${color.seven} bg:${color.two}";
               format = "[ $path ]($style)";
               truncation_length = 3;
               truncation_symbol = "…/";
@@ -106,18 +133,13 @@ $character";
               };
             };
             git_branch = {
-              format = "[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)";
+              format = "[[ $symbol $branch ](fg:${color.two} bg:${color.six})]($style)";
               symbol = "";
-              style = "bg:#394260";
+              style = "bg:${color.six}";
             };
             git_status = {
-              style = "bg:#394260";
-              format = "[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)";
-            };
-            golang = {
-              format = "[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)";
-              symbol = "";
-              style = "bg:#212736";
+              style = "bg:${color.six}";
+              format = "[[($all_status$ahead_behind )](fg:${color.two} bg:${color.six})]($style)";
             };
           };
         };

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  styles,
   ...
 }: {
   options = {
@@ -10,8 +11,7 @@
   config = lib.mkIf config.stylixModule.enable {
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
-      image = ../home/wall0.png;
+      inherit (styles) image base16Scheme;
       cursor = {
         package = pkgs.apple-cursor;
         name = "macOS";

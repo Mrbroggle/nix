@@ -1,7 +1,7 @@
 {
-  pkgs,
   lib,
   config,
+  styles,
   ...
 }: {
   options = {
@@ -10,8 +10,7 @@
   config = lib.mkIf config.styling.enable {
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
-      image = ./wall0.png;
+      inherit (styles) image base16Scheme;
       polarity = "dark";
       autoEnable = true;
       targets = {

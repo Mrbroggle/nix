@@ -17,7 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix";
-    # stylix.url = "github:mrbroggle/stylix/rstudio-hm-module";
+    #stylix.url = "github:mrbroggle/stylix/rstudio-hm-module";
     #stylix.url = "flake:gradybstylix/rstudio-hm-module";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -108,6 +108,11 @@
 
       nas-nixos-module = [];
     };
+
+    styles = {
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
+      image = ./wallpapers/wall0.png;
+    };
   in {
     nixosConfigurations = builtins.listToAttrs (
       map (hostName: {
@@ -118,6 +123,7 @@
           specialArgs = {
             inherit inputs system;
             inherit defaultUser hostName;
+            inherit styles;
           };
           ##Imports modules
           modules = [
@@ -139,6 +145,7 @@
                         extraSpecialArgs = {
                           inherit inputs;
                           inherit pkgs;
+                          inherit styles;
                         };
                         useGlobalPkgs = true;
                         useUserPackages = true;
