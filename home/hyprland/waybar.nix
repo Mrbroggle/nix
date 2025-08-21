@@ -17,6 +17,7 @@
           modules-left = [
             "clock"
             "tray"
+            "custom/xkb-layout"
           ];
           modules-center = [
             "hyprland/workspaces"
@@ -53,6 +54,12 @@
             on-click = "swaync-client -t -sw";
             escape = true;
           };
+          "custom/xkb-layout" = {
+            tooltip = false;
+            format = "{text}";
+            interval = 1;
+            exec = "hyprctl devices -j | jq -r '.keyboards[] | select(.name == \"kanata\" and .main == true) | .active_keymap'";
+          };
           clock = {
             format = "{:%H:%M:%S} ";
             interval = 1;
@@ -74,7 +81,7 @@
             tooltip-format-disconnected = "Error";
             tooltip-format-wifi = "{essid} ({signalStrength}%) ";
             tooltip-format-ethernet = "{ifname} 🖧 ";
-            on-click = "ghostty nmtui";
+            on-click = "ghostty -e nmtui";
           };
           bluetooth = {
             format-on = "󰂯";

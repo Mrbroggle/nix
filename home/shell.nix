@@ -56,9 +56,12 @@ in {
             gf = "git pull";
             gd = "git clone";
             gs = "git status";
-            ls = "eza $argv";
+            ls = "eza";
             nsp = "nix-shell -p";
-            nrn = "nix run nixpkgs#$argv";
+            nrn = {
+              setCursor = true;
+              expansion = "nix run nixpkgs#%";
+            };
             nr = "nix run";
           };
 
@@ -68,27 +71,27 @@ in {
             enc = "doas nvim /${path} ";
             cnc = "cd /${path}";
             nrs = "alejandra -q /${path}; nh os switch $argv";
-            nru = "nh os switch --update ";
+            nru = "alejandra -q /${path}; nh os switch --update ";
           };
         };
         starship = with config.lib.stylix.colors.withHashtag; let
           color = {
-            one = base03;
-            two = base04;
-            three = base09;
-            four = base01;
-            five = base05;
-            six = base02;
-            seven = base09;
-            eight = base01;
-            # one = "#212736";
-            # two = "#769ff0";
-            # three = "#a0a9cb";
-            # four = "#1d2230";
-            # five = "#a3aed2";
-            # six = "#394260";
-            # seven = "#e3e5e5";
-            # eight = "#090c0c";
+            # one = base03;
+            # two = base04;
+            # three = base09;
+            # four = base01;
+            # five = base05;
+            # six = base02;
+            # seven = base09;
+            # eight = base01;
+            one = "#212736";
+            two = "#769ff0";
+            three = "#a0a9cb";
+            four = "#1d2230";
+            five = "#a3aed2";
+            six = "#394260";
+            seven = "#e3e5e5";
+            eight = "#090c0c";
           };
         in {
           enable = true;
