@@ -35,8 +35,8 @@
 
     services = {
       xserver.xkb = {
-        layout = "us";
-        variant = "colemak";
+        # layout = "us";
+        # variant = "colemak";
       };
       xserver.enable = true;
       displayManager = {

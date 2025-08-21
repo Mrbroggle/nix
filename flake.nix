@@ -50,6 +50,11 @@
     asmfmt = {
       url = "github:Mrbroggle/asmfmt-nix";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -159,6 +164,7 @@
                       };
                     }
 
+                    lanzaboote.nixosModules.lanzaboote
                     home-manager.nixosModules.home-manager
                     nvf.nixosModules.default
                     spicetify-nix.nixosModules.default

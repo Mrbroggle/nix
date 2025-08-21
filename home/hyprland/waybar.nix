@@ -57,8 +57,7 @@
           "custom/xkb-layout" = {
             tooltip = false;
             format = "{text}";
-            interval = 1;
-            exec = "hyprctl devices -j | jq -r '.keyboards[] | select(.name == \"kanata\" and .main == true) | .active_keymap'";
+            exec = "nc localhost 6666 | jq -r --unbuffered --compact-output '.LayerChange.new'";
           };
           clock = {
             format = "{:%H:%M:%S} ";

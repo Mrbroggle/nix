@@ -51,7 +51,10 @@ in {
 
           shellAbbrs = {
             ga = "git add .";
-            gc = "git commit";
+            gc = {
+              setCursor = true;
+              expansion = "git commit -m \"%\"";
+            };
             gp = "git push";
             gf = "git pull";
             gd = "git clone";
