@@ -91,12 +91,12 @@
               {
                 criteria = "Lenovo Group Limited G24-20 U533B517";
                 position = "0,0";
-                mode = "1920x1080@165.00Hz";
+                mode = "1920x1080@120.00Hz";
               }
               {
                 criteria = "Acer Technologies KA222Q E3 14300123E3E00";
                 position = "-1080,-200";
-                mode = "1920x1080@100.00Hz";
+                mode = "1920x1080@60.00Hz";
                 transform = "90";
               }
               {

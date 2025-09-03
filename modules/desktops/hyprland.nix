@@ -23,13 +23,8 @@
 
     xdg.portal = {
       enable = true;
-      wlr.enable = false;
       extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-      configPackages = [
-        pkgs.xdg-desktop-portal-gtk
-        pkgs.xdg-desktop-portal
+        pkgs.xdg-desktop-portal-hyprland
       ];
     };
 
@@ -44,7 +39,7 @@
         sddm = {
           enable = true;
           wayland.enable = true;
-          theme = "where_is_my_sddm_theme";
+          theme = "sddm-astronaut-theme";
           settings = {
             Autologin = {
               User = "gradyb";
@@ -69,21 +64,29 @@
         };
       };
     };
-    environment.systemPackages = with pkgs; [
-      # alacritty
-      ghostty
-      networkmanager
-      wofi
-      udiskie
-      wl-clipboard
-      clipse
-      hyprshot
-      hyprpaper
-      hyprlock
-      hyprpolkitagent
-      where-is-my-sddm-theme
-      shikane
-      # hyprpanel
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        # alacritty
+        ghostty
+        networkmanager
+        wofi
+        udiskie
+        wl-clipboard
+        clipse
+        hyprshot
+        hyprpaper
+        hyprlock
+        hyprpolkitagent
+        sddm-astronaut
+        kdePackages.qtmultimedia
+        shikane
+        libei
+        # hyprpanel
+      ];
+      sessionVariables = {
+        NIXOS_WAYLAND = "1";
+        NIXOS_OZONE_WL = "1";
+      };
+    };
   };
 }

@@ -11,7 +11,7 @@
         # kb_variant = "colemak,";
 
         follow_mouse = "1";
-
+        force_no_accel = false;
         touchpad = {
           disable_while_typing = false;
           natural_scroll = true;

@@ -56,7 +56,7 @@
           };
           "custom/xkb-layout" = {
             tooltip = false;
-            format = "{text}";
+            format = "  {text}  ";
             exec = "nc localhost 6666 | jq -r --unbuffered --compact-output '.LayerChange.new'";
           };
           clock = {

@@ -29,9 +29,9 @@
       keyboards = {
         internalKeyboard = {
           port = 6666;
-          devices = [
-            "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-          ];
+          # devices = [
+          #   "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+          #];
           extraDefCfg = "process-unmapped-keys yes concurrent-tap-hold yes";
           config = ''
             (defsrc
@@ -43,12 +43,12 @@
               lctl lmet  lalt         spc           ralt rctl
             )
 
-            (deflayer ColemakCAWS
+            (deflayer Colemak
               esc   brdn brup  _    _    _    _   prev  pp  next mute vold volu
-              grv    1    2    3    4    5    6    7    8    9    0    \    =    bspc
-              tab    q    w    f    p    b    [    j    l    u    y    '    -    ;
-              esc    a    r    s    t    g    ]    m    n    e    i    o    ret
-              lsft   x    c    d    v    z    /    k    h    ,    .      rsft
+              grv    1    2    3    4    5    6    7    8    9    0    -    =    bspc
+              tab    q    w    f    p    g    j    l    u    y    ;    [    ]    \
+              esc    a    r    s    t    d    h    n    e    i    o    '    ret
+              lsft   z    x    c    v    b    k    m    ,    .    /      rsft
               lctl lmet lalt        spc           ralt rctl
             )
 
@@ -66,13 +66,13 @@
               esc   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11   f12
               grv    1    2    3    4    5    6    7    8    9    0    -    =    bspc
               tab    q    w    e    r    t    y    u    i    o    p    [    ]    \
-              caps   a    s    d    f    g    h    j    k    l    ;    '    ret
+              esc a    s    d    f    g    h    j    k    l    ;    '    ret
               lsft   z    x    c    v    b    n    m    ,    .    /      rsft
               lctl lmet  lalt         spc           ralt rctl
             )
 
             (defchordsv2
-              (lsft lalt 1) (layer-switch ColemakCAWS) 500 first-release ()
+              (lsft lalt 1) (layer-switch Colemak)     500 first-release ()
               (lsft lalt 2) (layer-switch QWERTY)      500 first-release ()
             )
 

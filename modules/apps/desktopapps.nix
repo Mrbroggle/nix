@@ -11,6 +11,7 @@
   config = lib.mkIf config.desktopApps.enable {
     environment.systemPackages = with pkgs; [
       whatsie
+      deskflow
       mpv
       celluloid
       neovide

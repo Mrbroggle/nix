@@ -45,6 +45,7 @@ in {
             fishPlugs;
           functions = {
             clangComp = "clang++ $argv -g -o $(path basename -E $argv)";
+            gccComp = "g++ $argv -g -o $(path basename -E $argv)";
           };
           binds = {
           };
