@@ -96,6 +96,9 @@
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPrev, exec, playerctl previous"
       ];
+      gesture = [
+        "3, horizontal, workspace"
+      ];
     };
   };
 }

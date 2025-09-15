@@ -10,14 +10,13 @@
   };
   config = lib.mkIf config.desktopApps.enable {
     environment.systemPackages = with pkgs; [
-      whatsie
       deskflow
       mpv
       celluloid
       neovide
       gnome-network-displays
       gparted
-      libsForQt5.okular
+      kdePackages.okular
       kdePackages.dolphin
       obsidian
       qbittorrent

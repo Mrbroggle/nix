@@ -18,7 +18,6 @@
       nix-output-monitor
       wget
       ffmpeg
-      libsForQt5.ffmpegthumbs
       unixtools.net-tools
       kdePackages.ffmpegthumbs
       gcc

@@ -78,6 +78,7 @@
       config = {
         permittedInsecurePackages = [
           "libxml2-2.13.8"
+          "qtwebengine-5.15.19"
         ];
         allowUnfree = true;
         allowUnfreePredicate = _: true;
@@ -116,7 +117,7 @@
 
     styles = {
       base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
-      image = ./wallpapers/wall0.png;
+      image = ./wallpapers/caffeine.png;
     };
   in {
     nixosConfigurations = builtins.listToAttrs (

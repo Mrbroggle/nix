@@ -18,10 +18,6 @@
           scroll_factor = "0.4";
         };
       };
-
-      gestures = {
-        workspace_swipe = true;
-      };
     };
   };
 }

@@ -48,9 +48,9 @@
         };
         sessionPackages = [pkgs.hyprland];
       };
-      logind.extraConfig = ''
-        HandlePowerKey=ignore
-      '';
+      logind.settings.Login = {
+        HandleLidSwitch = "ignore";
+      };
     };
     programs = {
       uwsm = {
