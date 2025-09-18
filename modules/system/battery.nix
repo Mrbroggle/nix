@@ -35,6 +35,11 @@
           };
         };
       };
+      acpid = {
+        enable = true;
+        handlers.power.event = "button/power.*";
+        handlers.power.action = "logger -t acpid \"Power button pressed, doing nothing.\"";
+      };
       system76-scheduler = {
         enable = true;
         useStockConfig = true;

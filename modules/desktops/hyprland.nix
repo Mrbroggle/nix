@@ -26,6 +26,7 @@
       extraPortals = [
         pkgs.xdg-desktop-portal-hyprland
       ];
+      config.common.default = "*";
     };
 
     services = {
@@ -38,6 +39,7 @@
         defaultSession = "hyprland";
         sddm = {
           enable = true;
+          package = pkgs.kdePackages.sddm;
           wayland.enable = true;
           theme = "sddm-astronaut-theme";
           settings = {
@@ -49,7 +51,8 @@
         sessionPackages = [pkgs.hyprland];
       };
       logind.settings.Login = {
-        HandleLidSwitch = "ignore";
+        HandlePowerKey = "ignore";
+        HandleLidSwitchDocked = "ignore";
       };
     };
     programs = {
@@ -81,6 +84,9 @@
         kdePackages.qtmultimedia
         shikane
         libei
+        (sddm-astronaut.override {
+          embeddedTheme = "black_hole";
+        })
         # hyprpanel
       ];
       sessionVariables = {
