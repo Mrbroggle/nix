@@ -24,7 +24,7 @@
           ];
           modules-right = [
             "cpu"
-            "ram"
+            "memory"
             "temperature"
             "bluetooth"
             "network"
@@ -115,15 +115,17 @@
             ];
           };
           cpu = {
-            format = "󰻠";
+            format = "{usage}% 󰻠";
             tooltip = true;
           };
           memory = {
-            format = "";
+            tooltip = false;
+            format = "{percentage}% ";
           };
           temperature = {
+            tooltip = false;
             critical-threshold = 80;
-            format = "";
+            format = "{temperatureC}°C ";
           };
           tray = {
             icon-size = 14;

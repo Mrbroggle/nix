@@ -2,6 +2,7 @@
   description = "My NixOS";
 
   inputs = {
+    ## Nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
@@ -9,21 +10,24 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    import-tree.url = "github:vic/import-tree";
-
-    hyprland.url = "github:hyprwm/Hyprland";
-    nvf = {
-      url = "github:notashelf/nvf";
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix.url = "github:danth/stylix";
-    #stylix.url = "github:mrbroggle/stylix/rstudio-hm-module";
-    #stylix.url = "flake:gradybstylix/rstudio-hm-module";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    import-tree.url = "github:vic/import-tree";
+
+    ## Wayland
+    hyprland.url = "github:hyprwm/Hyprland";
+    niri.url = "github:sodiboo/niri-flake";
+
+    ## Programs
     jerry.url = "github:justchokingaround/jerry";
     lobster.url = "github:justchokingaround/lobster";
-    niri.url = "github:sodiboo/niri-flake";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,8 +36,10 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixcord = {
-      url = "github:kaylorben/nixcord";
+
+    ##Editor
+    nvf = {
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     alejandra = {
@@ -43,16 +49,16 @@
     nil = {
       url = "github:oxalica/nil#";
     };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     asmfmt = {
       url = "github:Mrbroggle/asmfmt-nix";
     };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
 
+    ## Styling
+    stylix.url = "github:danth/stylix";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    nixcord = {
+      url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -74,6 +80,7 @@
       inherit pkgs;
       inherit system;
       overlays = [
+        inputs.niri.overlays.niri
       ];
       config = {
         permittedInsecurePackages = [

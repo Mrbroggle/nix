@@ -13,6 +13,7 @@
       inputs.alejandra.defaultPackage.x86_64-linux
       inputs.agenix.packages.x86_64-linux.default
       expect
+      mosh
       pre-commit
       direnv
       nix-output-monitor

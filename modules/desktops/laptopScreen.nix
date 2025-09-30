@@ -5,7 +5,7 @@
   ...
 }: {
   options = {
-    laptopScreen.enable = lib.mkOption {default = true;};
+    laptopScreen.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.laptopScreen.enable {
     boot.blacklistedKernelModules = [

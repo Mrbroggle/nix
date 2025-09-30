@@ -13,9 +13,8 @@
         extraRules = [
           {
             users = ["gradyb"];
-
             keepEnv = true;
-            noPass = true;
+            persist = true;
           }
         ];
       };
@@ -26,15 +25,30 @@
             {
               command = "ALL";
               options = [
-                "SETENV"
-                "NOPASSWD"
               ];
             }
           ];
         }
       ];
 
-      pam.services.fprintd.enableGnomeKeyring = true;
+      pam.services = {
+        login.enableGnomeKeyring = true;
+        fprintd.enableGnomeKeyring = true;
+        sddm.text = lib.mkForce (
+          lib.strings.concatLines (
+            builtins.filter (x: (lib.strings.hasPrefix "auth " x) && (!lib.strings.hasInfix "fprintd" x)) (
+              lib.strings.splitString "\n"
+              config.security.pam.services.login.text
+            )
+          )
+          + ''
+
+            account   include   login
+            password  substack  login
+            session   include   login
+          ''
+        );
+      };
     };
     programs.gnupg.agent = {
       enable = true;
@@ -49,10 +63,11 @@
       wantedBy = ["multi-user.target"];
       serviceConfig.Type = "simple";
     };
+
     services = {
+      gnome.gnome-keyring.enable = true;
       opensnitch.enable = true;
       openssh.enable = true;
-      passSecretService.enable = true;
     };
   };
 }

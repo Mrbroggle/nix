@@ -11,7 +11,7 @@
   ];
 in {
   options = {
-    kdeconnect.enable = lib.mkOption {default = true;};
+    kdeconnect.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.kdeconnect.enable {
     programs.kdeconnect.enable = true;

@@ -4,7 +4,7 @@
   ...
 }: {
   options = {
-    kde6.enable = lib.mkOption {default = true;};
+    kde6.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.kde6.enable {
     services = {

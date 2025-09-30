@@ -5,22 +5,11 @@
   ...
 }: {
   options = {
-    hyprland.enable = lib.mkOption {default = true;};
+    hyprland.enable = lib.mkOption {default = false;};
   };
   config = lib.mkIf config.hyprland.enable {
-    programs = {
-      /*
-      regreet = {
-        enable = true;
-        settings = lib.mkForce {
-          env = {
-            STATE_DIR = "/home/gradyb/.temp/";
-          };
-        };
-      };
-      */
-    };
-
+    sddm.enable = true;
+    kdeconnect.enable = true;
     xdg.portal = {
       enable = true;
       extraPortals = [
@@ -29,31 +18,9 @@
       config.common.default = "*";
     };
 
-    services = {
-      xserver.xkb = {
-        # layout = "us";
-        # variant = "colemak";
-      };
-      xserver.enable = true;
-      displayManager = {
-        defaultSession = "hyprland";
-        sddm = {
-          enable = true;
-          package = pkgs.kdePackages.sddm;
-          wayland.enable = true;
-          theme = "sddm-astronaut-theme";
-          settings = {
-            Autologin = {
-              User = "gradyb";
-            };
-          };
-        };
-        sessionPackages = [pkgs.hyprland];
-      };
-      logind.settings.Login = {
-        HandlePowerKey = "ignore";
-        HandleLidSwitchDocked = "ignore";
-      };
+    services.displayManager = {
+      defaultSession = "hyprland";
+      sessionPackages = [pkgs.hyprland];
     };
     programs = {
       uwsm = {
@@ -67,9 +34,9 @@
         };
       };
     };
+
     environment = {
       systemPackages = with pkgs; [
-        # alacritty
         ghostty
         networkmanager
         wofi
@@ -80,14 +47,7 @@
         hyprpaper
         hyprlock
         hyprpolkitagent
-        sddm-astronaut
-        kdePackages.qtmultimedia
         shikane
-        libei
-        (sddm-astronaut.override {
-          embeddedTheme = "black_hole";
-        })
-        # hyprpanel
       ];
       sessionVariables = {
         NIXOS_WAYLAND = "1";
