@@ -196,6 +196,26 @@
         "type": "github"
       }
     },
+    "comin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759818122,
+        "narHash": "sha256-K/vJ5yvCwMmEw71JBeRsq4NVZJvZQ/fSTDuXKsya5Vk=",
+        "owner": "nlewo",
+        "repo": "comin",
+        "rev": "3842ca90116d335ad719dfabd16809f1b3900540",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nlewo",
+        "repo": "comin",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1731098351,
@@ -1468,6 +1488,7 @@
         "agenix": "agenix",
         "alejandra": "alejandra",
         "asmfmt": "asmfmt",
+        "comin": "comin",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
         "import-tree": "import-tree",

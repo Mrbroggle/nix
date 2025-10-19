@@ -22,6 +22,7 @@
       qbittorrent
       networkmanagerapplet
       playerctl # # for Spotify keybinds
+      ghidra
     ];
 
     services = {

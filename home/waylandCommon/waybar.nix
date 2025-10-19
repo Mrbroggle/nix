@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs,
   ...
 }: {
   options = {
@@ -78,8 +79,8 @@
             format-ethernet = "";
             format-disconnected = "";
             tooltip-format-disconnected = "Error";
-            tooltip-format-wifi = "{essid} ({signalStrength}%) ";
-            tooltip-format-ethernet = "{ifname} 🖧 ";
+            tooltip-format-wifi = "{essid} ({signalStrength}%)  ";
+            tooltip-format-ethernet = "{ifname} 🖧";
             on-click = "ghostty -e nmtui";
           };
           bluetooth = {

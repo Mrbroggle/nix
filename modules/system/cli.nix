@@ -40,6 +40,8 @@
       libnotify
       nurl
       ueberzugpp
+      valgrind
+      gdbgui
     ];
     services = {
       fwupd.enable = true;

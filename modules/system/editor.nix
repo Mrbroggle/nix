@@ -94,6 +94,13 @@ in {
               disable_on_mouse = true,
             })";
             };
+            neocord = {
+              package = neocord;
+              setup = "require('neocord').setup({
+                    log_level =  'debug',
+                    buttons = nil,
+                })";
+            };
           };
           luaConfigRC.glsl-lsp = ''
             require'lspconfig'.glsl_analyzer.setup{}

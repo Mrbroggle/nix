@@ -19,6 +19,10 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    comin = {
+      url = "github:nlewo/comin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     import-tree.url = "github:vic/import-tree";
 
     ## Wayland
@@ -69,8 +73,6 @@
     home-manager,
     nixos-hardware,
     nixos-wsl,
-    alejandra,
-    agenix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -182,6 +184,19 @@
                   ++ moduleAttrs."${hostName}-module";
               }
             )
+            inputs.comin.nixosModules.comin
+            (_: {
+              services.comin = {
+                enable = true;
+                remotes = [
+                  {
+                    name = "origin";
+                    url = "https://gitlab.com/your/infra.git";
+                    branches.main.name = "main";
+                  }
+                ];
+              };
+            })
           ];
         };
       })
