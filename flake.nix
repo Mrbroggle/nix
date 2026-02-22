@@ -10,8 +10,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix = {
-      url = "github:ryantm/agenix";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
@@ -155,6 +156,7 @@
                     ./host/${hostName}.nix
                     ./host/${hostName}/hardware-configuration.nix
 
+                    home-manager.nixosModules.home-manager
                     {
                       home-manager = {
                         extraSpecialArgs = {
@@ -173,17 +175,16 @@
                         ];
                       };
                     }
-
-                    lanzaboote.nixosModules.lanzaboote
-                    home-manager.nixosModules.home-manager
-                    nvf.nixosModules.default
-                    spicetify-nix.nixosModules.default
-                    stylix.nixosModules.stylix
-                    agenix.nixosModules.default
                   ]
                   ++ moduleAttrs."${hostName}-module";
               }
             )
+
+            inputs.sops-nix.nixosModules.sops
+            inputs.lanzaboote.nixosModules.lanzaboote
+            inputs.nvf.nixosModules.default
+            inputs.spicetify-nix.nixosModules.default
+            inputs.stylix.nixosModules.stylix
             inputs.comin.nixosModules.comin
             (_: {
               services.comin = {

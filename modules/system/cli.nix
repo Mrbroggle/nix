@@ -11,7 +11,8 @@
   config = lib.mkIf config.cli.enable {
     environment.systemPackages = with pkgs; [
       inputs.alejandra.defaultPackage.x86_64-linux
-      inputs.agenix.packages.x86_64-linux.default
+      sops
+      age
       expect
       mosh
       pre-commit
